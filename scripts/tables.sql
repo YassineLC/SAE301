@@ -14,7 +14,9 @@ CREATE TABLE titleakas (
 	language varchar,
 	types varchar,
 	attributes varchar,
-	isOriginalTitle boolean DEFAULT NULL);
+	isOriginalTitle boolean DEFAULT NULL,
+	PRIMARY KEY(titleId, ordering)
+	);
 
 CREATE TABLE titlebasics (
 	tconst varchar,
@@ -25,19 +27,24 @@ CREATE TABLE titlebasics (
 	startYear integer,
 	endYear integer,
 	runtimeMinutes integer,
-	genres varchar);
+	genres varchar,
+	PRIMARY KEY(tconst)
+	);
 
 CREATE TABLE titlecrew (
 	tconst varchar,
-	parentTconst varchar,
-	seasonNumber integer,
-	episodeNumber integer);
+	directors varchar,
+	writers varchar,
+	PRIMARY KEY(tconst)
+	);
 
 CREATE TABLE titleepisode (
 	tconst varchar,
 	parentTconst varchar,
 	seasonNumber integer,
-	episodeNumber integer);
+	episodeNumber integer,
+	PRIMARY KEY(tconst)
+	);
 
 CREATE TABLE titleprincipals (
 	tconst varchar,
@@ -45,12 +52,16 @@ CREATE TABLE titleprincipals (
 	nconst varchar,
 	category varchar,
 	job varchar,
-	characters varchar);
+	characters varchar,
+	PRIMARY KEY(tconst, ordering)
+	);
 
 CREATE TABLE titleratings (
 	tconst varchar,
 	averageRating numeric,
-	numVotes integer);
+	numVotes integer,
+	PRIMARY KEY(tconst)
+	);
 
 CREATE TABLE namebasics (
 	nconst varchar,
@@ -58,4 +69,6 @@ CREATE TABLE namebasics (
 	birthYear integer,
 	deathYear integer,
 	primaryProfession varchar,
-	knownForTitles varchar);
+	knownForTitles varchar,
+	PRIMARY KEY(nconst)
+	);

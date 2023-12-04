@@ -10,12 +10,16 @@ PGPASSWORD="$PGPASSWORD" psql -h "$PGHOST" -d "$PGDATABASE" -U "$PGUSER" -c "\i 
 
 cd /home/yassine/MEGA/COURS/BUT2/SAE/bdd
 
+sed -i 's/Rosenkavalier""/Rosenkavalier"/' title.akas.tsv
+sed -i 's/"Thanatos Palace Hôtel/"Thanatos Palace Hôtel"/' title.principals.tsv
+sed -i 's/"Lauzun)/"Lauzun)\"/' title.principals.tsv
+sed -i -e '/tt0701219/d' ../bdd/title.basics.tsv
+
 files=(*.tsv)
 
 for file in "${files[@]}"; do
-sed -i 's/\\N//g' "$file"
 table="${file%.tsv}"
 temp=$(echo $table | tr -d '.')
-commande="\COPY $temp FROM '$file' DELIMITER E'\t' CSV HEADER;"
+commande="\COPY $temp FROM '$file' WITH DELIMITER E'\t' QUOTE E'\b' CSV HEADER NULL '\N';"
 PGPASSWORD="$PGPASSWORD" psql -h "$PGHOST" -d "$PGDATABASE" -U "$PGUSER" -c "$commande"
 done

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir ./bdd
+mkdir -p ./bdd
 cd ./bdd
 
 files=(
@@ -16,5 +16,8 @@ files=(
 for file in "${files[@]}"; do
   url="https://datasets.imdbws.com/$file"
   filename="${file%.gz}"
-  wget -O - "$url" | zcat > "$filename"
+  wget "$url"
+  gzip -d "$file"
 done
+
+rm -f *.gz
