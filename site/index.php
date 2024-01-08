@@ -1,10 +1,13 @@
-<?php
-
-require "connexion.php";
-
-function approximation($expression) {
-    $requete = $bdd->prepare('SELECT * FROM titlebasics WHERE tconst = \':expression\''); 
-    $requete->bindValue(":expression", $expression, PDO::PARAM_STR);
-    $requete->execute();
-    $resultat = $requete->fetch();
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="js/bootstrap.min.js">
+    <link href="css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
