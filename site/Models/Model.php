@@ -28,7 +28,7 @@ class Model
         if (strlen($expression) < 3) {
             return "Les recherches doivent avoir trois caractères minimum";
         }
-        $requete = $this->bd->prepare("SELECT * FROM titlebasics WHERE originaltitle ~* :expression"); 
+        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY averagerating DESC"); 
         $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
         $requete->execute();
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);

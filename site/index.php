@@ -1,10 +1,7 @@
 <?php
 
-//Pour avoir la fonction e()
 require_once "Utils/functions.php";
-//Inclusion du modèle
 require_once "Models/Model.php";
-//Inclusion de la classe Controller
 require_once "Controllers/Controller.php";
 
 //Liste des contrôleurs -- A RENSEIGNER
@@ -33,13 +30,5 @@ if (is_readable($nom_fichier)) {
 } else {
     die("Error 404: not found!");
 }
-
-$resultats = recherche("departed");
-
-echo "<ol>";
-foreach($resultats as $result) {
-    echo "<li>" . $result['originaltitle'] . "</li>";
-}
-echo "</ol>";
 
 ?>
