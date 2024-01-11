@@ -4,6 +4,42 @@ body {
     padding: 0;
 }
 
+@media (max-width: 768px) {
+    #navbar {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar-brand img {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .nav-item {
+        width: 50%;
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand img {
+        max-height: 40px;
+    }
+
+    .form-control {
+        display: none;
+    }
+}
+
 #navbar {
     background-color: #353434;
     border-radius: 20px;
@@ -18,7 +54,7 @@ body {
 .navbar-brand img {
     max-height: 60px;
     width: auto;
-    margin-right: 40px; /* Ajoute une marge à gauche pour décaler l'image */
+    margin-right: 40px;
 }
 
 .navbar-nav {
@@ -37,4 +73,8 @@ body {
 
 .btn-primary {
     border-radius: 0;
+}
+
+#navbar #searchbar {
+    float: right;
 }
