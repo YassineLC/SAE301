@@ -4,8 +4,7 @@ class Controller_home extends Controller {
 
     public function action_home() {
         $m = Model::getModel();
-        $data = $m->recherche("jean");
-        $this->render("home", $data) ;
+        $this->render("home") ;
     }
 
     public function action_default() {
@@ -16,11 +15,10 @@ class Controller_home extends Controller {
         if (isset($_GET['recherche'])) {
             $m = Model::getModel() ;
             $data = $m->recherche($_GET['recherche']);
-            $this->render("resultat", $data);
+            $this->render("resultat", ['data' => $data]);
         }
         else {
             echo "Erreur";
         }
     }
-
 }

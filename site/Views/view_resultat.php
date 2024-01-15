@@ -16,7 +16,16 @@
 <div class="p-4' rounded border border-blue"> 
     <ol>
         <?php foreach($data as $ligne) : ?>
-        <li> <?= $ligne['originaltitle'] ?> </li>
+        <li>
+             <?= $ligne['originaltitle'] ?> 
+                <?php if ($ligne['poster_path']==0) : ?>
+                    <img src="Content/img/movie-poster-default.jpg" class="float-right w-25 h-25 p-3" />
+                <?php elseif (isset($ligne['poster_path'])) : ?>
+                    <img src=https://image.tmdb.org/t/p/original<?=$ligne['poster_path']?> class="float-right w-25 h-25 p-3" />
+             
+             <?php endif?>
+
+        </li>
         <?php endforeach?>
     </ol>
 </div>

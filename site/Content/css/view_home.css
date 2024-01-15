@@ -75,6 +75,13 @@ body {
     border-radius: 0;
 }
 
-#navbar #searchbar {
-    float: right;
+#navbar #rechercher {
+    border-radius: 20px;
+    background-color: #353434;
+    border-color: #9A9999;
+    color: #9A9999;
+}
+
+.form-control::placeholder {
+    color: #9A9999;
 }
