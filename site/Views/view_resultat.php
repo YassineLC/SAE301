@@ -17,7 +17,7 @@
     <ol>
         <?php foreach($data as $ligne) : ?>
         <li>
-             <?= print_r($ligne) ?> 
+            <?= $ligne['originaltitle'] ?>
         </li>
         <?php endforeach?>
     </ol>

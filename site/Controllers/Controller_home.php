@@ -35,12 +35,12 @@ class Controller_home extends Controller {
     }
     public function filtres() 
     {
-        if ($_GET['type'] == 'film')
+        if ($_GET['type'] == 'film') {
         $filtres = [
             'type' => isset($_GET['type']) ? $_GET['type'] : '',
             'genres' => isset ($_GET['genres']) ? $_GET['genres'] : ''
         ];
-
+        }
         elseif ($_GET['type'] == 'personne') {
         $filtres = [
             'type' => isset($_GET['type']) ? $_GET['type'] : '',
