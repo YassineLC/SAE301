@@ -29,7 +29,7 @@ class Model {
         if (strlen($expression) < 3) {
             return "Les recherches doivent avoir trois caractères minimum";
         }
-        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY averagerating DESC"); 
+        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY numvotes DESC"); 
         $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
         $requete->execute();
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -45,16 +45,13 @@ class Model {
 
         if ($filtres['type'] == 'film')
         {
-            $sql = "Select * from titlebasics Where primarytitle ~* :expression"; 
+            $sql = "SELECT * FROM titlebasics WHERE SIMILARITY(originaltitle, :expression) > 0.6"; 
         }
         elseif($filtres['type'] == 'personne')
         {
-            $sql = "Select * from namebasics Where primaryname ~* :expression"; 
+            $sql = "SELECT * FROM namebasics WHERE SIMILARITY(primaryname, :expression) > 0.5"; 
         }
-   #     else 
-   #     {
-   #         $sql = "Select * from namebasics Where primaryname Like '%$expression%' Join Select * from tiltebasics Where primarytilte Like '%$expression%'";
-   #     }
+        
         $firstIteration = true;
         foreach($filtres as $filtre => $val)
         {
