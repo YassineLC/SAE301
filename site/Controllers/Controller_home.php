@@ -21,4 +21,36 @@ class Controller_home extends Controller {
             echo "Erreur";
         }
     }
+
+    public function action_recherche_avance() 
+    {
+        if (isset($_GET['recherche']) && isset($_GET['type'])) {
+            $m = Model::getModel() ;
+            $data = $m->recherche_avance($_GET['recherche'],$this->filtres());
+            $this->render("resultat", $data);
+        }
+        else {
+            echo "Erreur";
+        }
+    }
+    public function filtres() 
+    {
+        if ($_GET['type'] == 'film')
+        $filtres = [
+            'type' => isset($_GET['type']) ? $_GET['type'] : '',
+            'genres' => isset ($_GET['genres']) ? $_GET['genres'] : ''
+        ];
+
+        elseif ($_GET['type'] == 'personne') {
+        $filtres = [
+            'type' => isset($_GET['type']) ? $_GET['type'] : '',
+            'birthyear' => isset ($_GET['birthyear']) ? $_GET['birthyear'] : '',
+            'deathyear' => isset ($_GET['deathyear']) ? $_GET['deathyear'] : '',
+            'primaryprofession' => isset ($_GET['primaryprofession']) ? $_GET['primaryprofession'] : '',
+            'knownfortitles' => isset ($_GET['knownfortitles']) ? $_GET['knownfortitles'] : ''
+        ];
+        }
+
+        return $filtres;
+    }
 }

@@ -24,6 +24,63 @@ class Model {
         return self::$instance;
     }
 
+    public function recherche($expression) 
+    {
+        if (strlen($expression) < 3) {
+            return "Les recherches doivent avoir trois caractères minimum";
+        }
+        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY averagerating DESC"); 
+        $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
+    }
+
+    public function recherche_avance($expression, $filtres)
+    {
+        if (strlen($expression) < 3) 
+        {
+            return "Les recherches doivent avoir trois caractères minimum";
+        }
+
+        if ($filtres['type'] == 'film')
+        {
+            $sql = "Select * from titlebasics Where primarytitle ~* :expression"; 
+        }
+        elseif($filtres['type'] == 'personne')
+        {
+            $sql = "Select * from namebasics Where primaryname ~* :expression"; 
+        }
+   #     else 
+   #     {
+   #         $sql = "Select * from namebasics Where primaryname Like '%$expression%' Join Select * from tiltebasics Where primarytilte Like '%$expression%'";
+   #     }
+        $firstIteration = true;
+        foreach($filtres as $filtre => $val)
+        {
+            if ($firstIteration) 
+            {
+                $firstIteration = false;
+                continue;
+            }
+            if ($val == "") {
+                continue ;
+            }
+            $val = $this->bd->quote($val); 
+            $sql .= ' and ' . $filtre . '=' . $val;
+
+        }
+
+        $sql .= ';'; 
+        $requete = $this->bd->prepare($sql);
+        $requete->bindParam(":expression", $expression, PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
+    }
+
+
+    /*
     public function recherche($expression) {
     if (strlen($expression) < 3) {
         return "Les recherches doivent avoir trois caractères minimum";
@@ -58,24 +115,6 @@ class Model {
         if (isset($poster_path)) {
         $ligne['poster_path'] = $poster_path;
         }
-    }
-
-    return $resultat;
-
-    }
-
-
-    /*
-    public function recherche($expression) 
-    {
-        if (strlen($expression) < 3) {
-            return "Les recherches doivent avoir trois caractères minimum";
-        }
-        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY averagerating DESC"); 
-        $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
-        $requete->execute();
-        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
-        return $resultat;
     }
     */
 }
