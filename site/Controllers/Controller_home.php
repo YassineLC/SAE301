@@ -22,11 +22,11 @@ class Controller_home extends Controller {
         }
     }
 
-    public function action_recherche_avance() 
+    public function action_recherche_avancee() 
     {
         if (isset($_GET['recherche']) && isset($_GET['type'])) {
             $m = Model::getModel() ;
-            $data = $m->recherche_avance($_GET['recherche'],$this->filtres());
+            $data = $m->recherche_avancee($_GET['recherche'],$this->filtres());
             $this->render("resultat", $data);
         }
         else {

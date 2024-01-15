@@ -36,7 +36,7 @@ class Model {
         return $resultat;
     }
 
-    public function recherche_avance($expression, $filtres)
+    public function recherche_avancee($expression, $filtres)
     {
         if (strlen($expression) < 3) 
         {
@@ -45,13 +45,13 @@ class Model {
 
         if ($filtres['type'] == 'film')
         {
-            $sql = "SELECT * FROM titlebasics WHERE SIMILARITY(originaltitle, :expression) > 0.6"; 
+            $sql = "SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE SIMILARITY(originaltitle, :expression) > 0.4"; 
         }
         elseif($filtres['type'] == 'personne')
         {
             $sql = "SELECT * FROM namebasics WHERE SIMILARITY(primaryname, :expression) > 0.5"; 
         }
-        
+
         $firstIteration = true;
         foreach($filtres as $filtre => $val)
         {
@@ -64,8 +64,17 @@ class Model {
                 continue ;
             }
             $val = $this->bd->quote($val); 
+            if ($filtre == 'genres') {
+                $sql .= ' and ' . $filtre . '~*' . $val;
+            }
+            else {
             $sql .= ' and ' . $filtre . '=' . $val;
+            }
 
+        }
+
+        if ($filtres['type'] == 'film') {
+            $sql.= 'ORDER BY numvotes DESC' ;
         }
 
         $sql .= ';'; 
