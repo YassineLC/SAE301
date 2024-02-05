@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <header class="text-center py-4 border-b border-gray-800">
+        <h1 class="text-4xl font-semibold">Page d'accueil</h1>
+        <div class="flex justify-center gap-4 mt-2">
+            <button class="bg-blue-600 px-3 py-1 rounded">COMMUN</button>
+            <button class="bg-gray-800 px-3 py-1 rounded">RAPPROCHEMENT</button>
+            <div class="relative">
+                <input type="text" class="bg-gray-700 px-3 py-1 rounded w-64" placeholder="Recherche...">
+                <i class="fas fa-search absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-8">
+        <section class="my-8">
+            <img src="https://placehold.co/900x500?text=Main+Banner+Image&fontsize=25" alt="Main banner image depicting a woman laying down with a cigarette" class="w-full h-80 object-cover rounded">
+        </section>
+
+        <section class="my-8">
+            <h2 class="text-2xl font-semibold mb-4">NOUVEAUTÉS</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Repeat for each movie item -->
+                <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="w-full h-full object-cover rounded">
+                <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="w-full h-full object-cover rounded">
+                <!-- ... -->
+            </div>
+        </section>
+
+        <section class="my-8">
+            <hr class="border-gray-800">
+            <h2 class="text-2xl font-semibold my-4">FONCTIONNALITÉS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <i class="fas fa-search-plus fa-2x"></i>
+                    <h3 class="text-xl font-semibold mt-2">RECHERCHES SIMPLES</h3>
+                    <p class="mt-1">Lancez une recherche simple et intuitive de votre film préféré en utilisant uniquement un mot-clé, sans approfondissement (nom du film, nom d'acteur, etc.).</p>
+                </div>
+                <div>
+                    <i class="fas fa-cogs fa-2x"></i>
+                    <h3 class="text-xl font-semibold mt-2">RECHERCHES AVANCÉES</h3>
+                    <p class="mt-1">Utilisez notre barre de recherche multifonction pour des requêtes précises, en utilisant plusieurs paramètres (genre, année de sortie, etc.).</p>
+                </div>
+                <div>
+                    <i class="fas fa-cogs fa-2x"></i>
+                    <h3 class="text-xl font-semibold mt-2">RECHERCHES AVANCÉES</h3>
+                    <p class="mt-1">Utilisez notre barre de recherche multifonction pour des requêtes précises, en utilisant plusieurs paramètres (genre, année de sortie, etc.).</p>
+                </div>
+                <!-- Repeat for other features -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8">
+        <div class="border-t border-gray-800 pt-4">
+            <form class="mb-4">
+                <input type="email" placeholder="Votre email" class="bg-gray-700 px-3 py-1 rounded w-64">
+                <button class="bg-blue-600 px-3 py-1 rounded ml-2">Newsletter</button>
+            </form>
+            <div class="flex justify-center gap-4 text-gray-400">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="#" class="text-gray-400 text-sm">À propos</a>
+            <a href="#" class="text-gray-400 text-sm ml-4">Contact</a>
+        </div>
+    </footer>
+</body>
+
+</html>

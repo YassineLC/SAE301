@@ -82,6 +82,37 @@ body {
     color: #9A9999;
 }
 
-.form-control::placeholder {
-    color: #9A9999;
+#fonctionnalites h2 {
+    color: #e2dfdf;
+}
+
+.feature-content {
+    background-color: #312C2C;
+}
+
+
+.fonc-box {
+    color: #e2dfdf;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease; /* Adjust time and easing function as needed */
+}
+
+.fonc-box:hover {
+    background-color: black; /* Replace with your desired hover color */
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Creates one column */
+    gap: 30px; /* adjust as needed */
+}
+
+@media (min-width: 600px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Keeps one column on larger screens */
+    }
+}
+
+.container {
+    margin-bottom: 2rem;
 }
