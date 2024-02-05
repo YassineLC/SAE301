@@ -86,41 +86,62 @@ class Model {
     }
 
 
-    /*
-    public function recherche($expression) {
-    if (strlen($expression) < 3) {
-        return "Les recherches doivent avoir trois caractères minimum";
-    }
-
-    $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY averagerating DESC"); 
-    $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
-    $requete->execute();
-    $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-    $client = new \GuzzleHttp\Client();
-
-    foreach ($resultat as &$ligne) {
-        $response = $client->request('GET', 'https://api.themoviedb.org/3/find/' . $ligne['tconst'] . '?external_source=imdb_id&language=php', [
-            'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
-                'accept' => 'application/json',
-            ],
-        ]);
-
-        $result = $response->getBody();
-        $donnee = json_decode($result, true);
-
-        if (isset($donnee['movie_results'][0]['poster_path'])) {
-            $poster_path = $donnee['movie_results'][0]['poster_path'];
-        } elseif ((isset($donnee['tv_results'][0]['poster_path']))) {
-            $poster_path = $donnee['tv_results'][0]['poster_path'];
+    function recherche_commun($param1, $param2) {
+        $m = Model::getModel();
+        $query = '';
+        $paramType = '';
+    
+        //Condition pour vérifier si ce sont des personnes
+        if (strpos($param1, 'nm') === 0 && strpos($param2, 'nm') === 0) {
+            $query = '
+                SELECT DISTINCT tp.tconst, tb.primaryTitle
+                FROM titleprincipals tp
+                JOIN titlebasics tb ON tp.tconst = tb.tconst
+                JOIN titleprincipals tp2 ON tp.tconst = tp2.tconst
+                JOIN namebasics nb ON tp2.nconst = nb.nconst
+                WHERE tp.nconst = :person1 AND tp2.nconst = :person2
+            ';
+            $paramType = 'people';
+    
+        // Autre condition pour vérifier si ce sont des films
+        } elseif (strpos($param1, 'tt') === 0 && strpos($param2, 'tt') === 0) {
+            // Les deux paramètres sont des films
+            $query = '
+                SELECT DISTINCT nb.nconst, nb.primaryName
+                FROM titleprincipals tp
+                JOIN namebasics nb ON tp.nconst = nb.nconst
+                JOIN titleprincipals tp2 ON tp.nconst = tp2.nconst
+                JOIN titlebasics tb ON tp2.tconst = tb.tconst
+                WHERE tp.tconst = :movie1 AND tp2.tconst = :movie2
+            ';
+            $paramType = 'movies';
         } else {
-            $poster_path = 0;
+            echo "Paramètres invalides ! Veuillez mettre des paramètres correct svp";
+            return;
         }
-
-        if (isset($poster_path)) {
-        $ligne['poster_path'] = $poster_path;
+    
+        $stmt =$m->prepare($query);
+    
+        if ($paramType === 'people') {
+            $stmt->bindParam(':person1', $param1, PDO::PARAM_STR);
+            $stmt->bindParam(':person2', $param2, PDO::PARAM_STR);
+        } elseif ($paramType === 'movies') {
+            $stmt->bindParam(':movie1', $param1, PDO::PARAM_STR);
+            $stmt->bindParam(':movie2', $param2, PDO::PARAM_STR);
         }
+    
+        $stmt->execute();
+    
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        if ($paramType === 'people') {
+            echo "Ensemble des films en commun :";
+        } elseif ($paramType === 'movies') {
+            echo "Ensemble des personnes en commun :";
+        }
+    
+        return $result;
     }
-    */
 }
+
+
