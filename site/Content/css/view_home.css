@@ -82,6 +82,10 @@ body {
     color: #9A9999;
 }
 
+#rechercher::placeholder {
+    color: #9A9999;
+}
+
 #fonctionnalites h2 {
     color: #e2dfdf;
 }
@@ -114,5 +118,56 @@ body {
 }
 
 .container {
+    margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+.content-with-img {
+    display: flex;
+    align-items: center; /* Vertically aligns the GIF and the paragraph */
+    gap: 20px; /* Adjust as needed */
+}
+
+.feature-img {
+    @media (max-width: 576px) {
+        width: 50px; /* Adjust as needed for smaller screens */
+    }
+
+    @media (min-width: 577px) and (max-width: 1024px) {
+        width: 60px; /* Adjust as needed for medium screens */
+    }
+
+    @media (min-width: 1025px) {
+        width: 70px; /* Adjust as needed for larger screens */
+    }
+}
+
+.feature-text-description {
+    @media (max-width: 576px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 577px) and (max-width: 1024px) {
+        font-size: 18px;
+    }
+
+    @media (min-width: 1025px) {
+        font-size: 20px;
+    }
+}
+
+.img-fluid {
+    width: 220px; /* Adjust as needed */
+    height: 330px; /* Adjust as needed */
+    overflow: hidden;
+}
+
+.image-content {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
+.container.nouveautes {
+    margin-bottom: 7rem;
 }
