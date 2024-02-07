@@ -2,13 +2,14 @@
 
 class Controller_home extends Controller {
 
-    public function action_home() {
-        $m = Model::getModel();
-        $this->render("home") ;
-    }
-
     public function action_default() {
         $this->action_home();
+    }
+
+    public function action_home() {
+        $m = Model::getModel();
+        $data = $m->getURLPosters(5);
+        $this->render("home", $data);
     }
 
     public function action_recherche() {
@@ -33,6 +34,7 @@ class Controller_home extends Controller {
             echo "Erreur";
         }
     }
+
     public function filtres() 
     {
         if ($_GET['type'] == 'film') {
@@ -53,4 +55,5 @@ class Controller_home extends Controller {
 
         return $filtres;
     }
+
 }

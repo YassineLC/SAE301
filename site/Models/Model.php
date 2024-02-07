@@ -87,7 +87,6 @@ class Model {
 
 
     function recherche_commun($param1, $param2) {
-        $m = Model::getModel();
         $query = '';
         $paramType = '';
     
@@ -120,7 +119,7 @@ class Model {
             return;
         }
     
-        $stmt =$m->prepare($query);
+        $stmt = $this->bd->prepare($query);
     
         if ($paramType === 'people') {
             $stmt->bindParam(':person1', $param1, PDO::PARAM_STR);
@@ -142,7 +141,40 @@ class Model {
     
         return $result;
     }
-    
+
+    public function getURLPosters($number) {
+        $sql = "SELECT tb.tconst, tb.primarytitle, tr.averagerating, tr.numvotes
+                FROM titlebasics tb
+                JOIN titleratings tr ON tb.tconst = tr.tconst
+                WHERE tb.startyear = EXTRACT(YEAR FROM CURRENT_DATE) - 1
+                AND tb.titletype = 'movie'
+                ORDER BY tr.numvotes DESC
+                LIMIT :number ;";
+        $requete = $this->bd->prepare($sql);
+        $requete->bindParam(":number", $number, PDO::PARAM_INT);
+        $requete->execute();
+        $result = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        require_once('Utils/API/vendor/autoload.php');
+            
+            $client = new \GuzzleHttp\Client();
+
+        $posters = [];
+
+        foreach($result as $film) {
+            $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $film['tconst'] . '?language=en-US', [
+              'headers' => [
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                'accept' => 'application/json',
+              ],
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            $poster = $data['poster_path'];
+            array_push($posters, $poster);
+        }
+        return $posters;
+    }
 }
 
 

@@ -31,6 +31,7 @@ abstract class Controller
      * @param array $data tableau contenant les données à passer à la vue
      * @return aucun
      */
+    
     protected function render($vue, $data = [])
     {
 

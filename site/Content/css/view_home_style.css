@@ -171,3 +171,8 @@ body {
 .container.nouveautes {
     margin-bottom: 7rem;
 }
+
+.background-image {
+    margin-top: 4rem;
+    margin-bottom: 4rem;    
+}

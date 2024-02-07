@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="Content/css/view_home.css" rel="stylesheet">
+    <link href="Content/css/view_home_style.css" rel="stylesheet">
     <title>Page d'accueil</title>
     <script>
         function updateFormAction() {
@@ -43,6 +43,10 @@
         </nav>
     </div>
     <script src="Content/js/bootstrap.bundle.min.js"></script>
+
+    <div class="background-image py-4 text-center">
+        <img src="Content/img/pulp-fiction-background.jpg" alt="Movie poster for index background" class="rounded mx-auto">
+    </div>
     
     <section class="py-8 text-white">
         <div class="container nouveautes">
@@ -51,37 +55,13 @@
             <div class="row g-4 justify-content-center">
                 
                 <!-- Image frames -->
-
-                <div class="col">
-                    <div class="image-frame">
-                        <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
+                <?php foreach ($data as $poster) {?>
+                    <div class="col">
+                        <div class="image-frame">
+                            <img src="https://image.tmdb.org/t/p/original/<?php echo $poster; ?>" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
+                        </div>
                     </div>
-                </div>
-
-                <div class="col">
-                    <div class="image-frame">
-                        <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="image-frame">
-                        <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="image-frame">
-                        <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="image-frame">
-                        <img src="https://placehold.co/220x330?text=Movie+Thumbnail&fontsize=25" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
-                    </div>
-                </div>
-
+                <?php } ?>
             </div>
         </div> 
     </section>
