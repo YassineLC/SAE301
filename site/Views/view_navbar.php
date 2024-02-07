@@ -1,11 +1,17 @@
+<script src="Content/js/jquery-3.7.1.min.js.js"></script>
 
 <script>
-    function updateFormAction() {
-        var rechercheValue = document.getElementById('rechercher').value;
-        var form = document.getElementById('myForm');
-        form.action = "?controller=home&action=recherche&recherche=" + encodeURIComponent(rechercheValue);
-    }
+    $(document).ready(function() {
+        $('#myForm').on('submit', function(event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+            var rechercheValue = $('#rechercher').val();
+            var actionUrl = '?controller=home&action=recherche&recherche=' + encodeURIComponent(rechercheValue);
+            $(this).attr('action', actionUrl);
+            window.location.href = actionUrl;
+        });
+    });
 </script>
+
 
 </head>
 <body>

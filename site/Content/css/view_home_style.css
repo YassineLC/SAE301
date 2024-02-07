@@ -248,3 +248,26 @@ body {
     margin-top: 6rem !important;
     margin-bottom: 4rem !important;
 }
+
+.image-frame {
+    transition: filter 0.4s ease;
+}
+
+.image-frame:hover {
+    filter: blur(5px);
+}
+
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    z-index: 10; /* Ensure text appears above image */
+}
+
+.image-frame:hover .hover-text {
+    opacity: 1;
+}

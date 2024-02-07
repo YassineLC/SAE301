@@ -21,10 +21,13 @@
             <div class="row g-4 justify-content-center">
                 
                 <!-- Image frames -->
-                <?php foreach ($data as $poster) {?>
+                <?php foreach ($data as $movie) {?>
                     <div class="col">
                         <div class="image-frame">
-                            <img src="https://image.tmdb.org/t/p/original/<?php echo $poster; ?>" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
+                            <img src="https://image.tmdb.org/t/p/original/<?php echo $movie['poster_path']; ?>" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
+                            <div class="hover-text">
+                                <p>Text to display</p>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -77,7 +80,7 @@
 
                     <!-- Feature 3 -->
                     <div class="feature col-md-6">
-                        <a class="feature-block text-decoration-none">
+                        <a class="feature-block text-decoration-none" href="?controller=commun&action=commun">
                             <div class="fonc-box feature-content p-4">
                                 <h3 class="text-center text-xl font-semibold mt-2">COMMUN</h3>
                                 <div class="content-with-img">

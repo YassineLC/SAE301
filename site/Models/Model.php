@@ -143,7 +143,7 @@ class Model {
         return $result;
     }
 
-    public function getURLPosters($number) {
+    public function getMoviesInfo($number) {
         $sql = "SELECT tb.tconst, tb.primarytitle, tr.averagerating, tr.numvotes
                 FROM titlebasics tb
                 JOIN titleratings tr ON tb.tconst = tr.tconst
@@ -171,8 +171,7 @@ class Model {
             ]);
 
             $data = json_decode($response->getBody(), true);
-            $poster = $data['poster_path'];
-            array_push($posters, $poster);
+            array_push($posters, $data);
         }
         return $posters;
     }
