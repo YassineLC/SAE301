@@ -172,7 +172,74 @@ body {
     margin-bottom: 7rem;
 }
 
-.background-image {
-    margin-top: 4rem;
-    margin-bottom: 4rem;    
+/* Footer Styles */
+.site-footer {
+    background-color: #353434; /* Modifier selon la couleur exacte de votre design */
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px; /* Ajustez l'espacement selon vos besoins */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Organise les éléments en colonne */
+    align-items: center; /* Centre les éléments */
+    justify-content: center;
+}
+
+.newsletter {
+    margin-bottom: 20px; /* Espace entre la newsletter et les icônes */
+}
+
+.email-input {
+    padding: 10px;
+    border: 1px solid #ccc; /* Couleur de la bordure à ajuster selon le design */
+    border-radius: 20px;
+    width: 60%; /* Augmenté la largeur de la barre de mail */
+    max-width: 350px; /* Limite la taille maximale si nécessaire */
+    margin-bottom: 10px; /* Espace sous la barre d'email */
+}
+
+.subscribe-btn {
+    padding: 10px 20px;
+    background-color: #474545; /* Modifier selon la couleur exacte de votre design */
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.social-icons {
+    margin-bottom: 20px; /* Espace entre les icônes et les liens */
+}
+
+.social-icon {
+    padding: 10px;
+    color: #ffffff;
+    font-size: 24px; /* Taille des icônes de réseaux sociaux */
+    margin: 0 5px; /* Espace horizontal autour des icônes */
+}
+
+.footer-links {
+    text-align: center; /* Centre les liens */
+}
+
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px; /* Taille du texte des liens */
+    margin: 0 10px; /* Espace horizontal entre les liens */
+    display: inline; /* Affiche les liens en ligne */
+}
+
+/* Media query pour réduire la taille des textes et des icônes sur les petits écrans */
+@media (max-width: 576px) {
+    .email-input {
+        width: 90%; /* Ajusté pour les petits écrans */
+    }
+    
+    .social-icon,
+    .footer-link {
+        font-size: 16px; /* Réduit la taille sur les petits écrans */
+    }
 }
