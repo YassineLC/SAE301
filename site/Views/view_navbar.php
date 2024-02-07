@@ -1,33 +1,25 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="Content/css/view_home_style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <title>Page d'accueil</title>
-    <script>
-        function updateFormAction() {
-            var rechercheValue = document.getElementById('rechercher').value;
-            var form = document.getElementById('myForm');
-            form.action = "?controller=home&action=recherche&recherche=" + encodeURIComponent(rechercheValue);
-        }
-    </script>
+<script>
+    function updateFormAction() {
+        var rechercheValue = document.getElementById('rechercher').value;
+        var form = document.getElementById('myForm');
+        form.action = "?controller=home&action=recherche&recherche=" + encodeURIComponent(rechercheValue);
+    }
+</script>
+
 </head>
 <body>
     <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-dark rounded">
             <div class="container">
-                <a class="navbar-brand me-auto" href="#">
+                <a class="navbar-brand me-auto" href="?controller=home&action=home">
                     <img src="Content/img/logo-le-septieme-art.png" alt="Logo">
                 </a>
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">COMMUN</a>
+                            <a class="nav-link" href="?controller=commun&action=commun">COMMUN</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">RAPPROCHEMENT</a>

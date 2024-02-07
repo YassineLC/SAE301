@@ -1,6 +1,16 @@
-<?php require 'view_begin.php';?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/css/view_home_style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Page d'accueil</title>
 
-    <div class="background-image py-4 text-center">
+    <?php require 'view_navbar.php';?>
+
+    <div class="background-image my-5 text-center">
         <img src="Content/img/pulp-fiction-background.jpg" alt="Movie poster for index background" class="rounded mx-auto">
     </div>
     
@@ -38,7 +48,6 @@
                     <div class="feature col-md-6">
                         <a class="feature-block text-decoration-none">
                             <div class="fonc-box feature-content p-4">
-                                <i class="fas fa-search-plus fa-2x"></i>
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES SIMPLES</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-coche-100.png" class="feature-img">
@@ -52,7 +61,6 @@
                     <div class="col-md-6">
                         <a class="feature-block text-decoration-none">
                             <div class="fonc-box feature-content p-4">
-                                <i class="fas fa-cogs fa-2x"></i>
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES AVANCÉES</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-rafraichir-120.png" class="feature-img">
@@ -71,7 +79,6 @@
                     <div class="feature col-md-6">
                         <a class="feature-block text-decoration-none">
                             <div class="fonc-box feature-content p-4">
-                                <i class="fas fa-search-plus fa-2x"></i>
                                 <h3 class="text-center text-xl font-semibold mt-2">COMMUN</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-dossier-ouvert-120.png" class="feature-img" >
@@ -85,7 +92,6 @@
                     <div class="feature col-md-6">
                         <a class="feature-block text-decoration-none">
                             <div class="fonc-box feature-content p-4">
-                                <i class="fas fa-search-plus fa-2x"></i>
                                 <h3 class="text-center text-xl font-semibold mt-2">RAPPROCHEMENT</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-partager-2-100.png" class="feature-img">
@@ -102,4 +108,5 @@
             </div>
         </div>
     </section>
+
 <?php require 'view_end.php';?>

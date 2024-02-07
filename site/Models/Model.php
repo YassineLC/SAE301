@@ -10,7 +10,8 @@ class Model {
 
     private function __construct()
     {
-        include "./Utils/connexion.php";
+        //Add your credentials here to connect to the database
+        include "Utils/credentials.php";
         $this->bd = new PDO("pgsql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->bd->query("SET nameS 'utf8'");

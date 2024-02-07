@@ -119,7 +119,7 @@ body {
 
 .container {
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
 }
 
 .content-with-img {
@@ -242,4 +242,9 @@ body {
     .footer-link {
         font-size: 16px; /* Réduit la taille sur les petits écrans */
     }
+}
+
+.my-5 {
+    margin-top: 6rem !important;
+    margin-bottom: 4rem !important;
 }
