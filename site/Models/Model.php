@@ -10,7 +10,7 @@ class Model {
 
     private function __construct()
     {
-        //Add your credentials here to connect to the database
+        //Ajouter les informations de connexion à la base de données dans credentials.php
         include "Utils/credentials.php";
         $this->bd = new PDO("pgsql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -160,10 +160,10 @@ class Model {
             
             $client = new \GuzzleHttp\Client();
 
-        $posters = [];
+        $donnees = [];
 
         foreach($result as $film) {
-            $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $film['tconst'] . '?language=en-US', [
+            $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $film['tconst'] . '?language=fr-fr', [
               'headers' => [
                 'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
                 'accept' => 'application/json',
@@ -171,9 +171,11 @@ class Model {
             ]);
 
             $data = json_decode($response->getBody(), true);
-            array_push($posters, $data);
+            $data['averagerating'] = $film['averagerating'];
+            $data['numvotes'] = $film['numvotes'];
+            array_push($donnees, $data);
         }
-        return $posters;
+        return $donnees;
     }
 }
 

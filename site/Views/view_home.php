@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Content/img/favicon.ico" rel="icon">
     <link href="Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/css/view_home_style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <title>Page d'accueil</title>
+    <title>Le Septieme Art - Accueil</title>
 
     <?php require 'view_navbar.php';?>
 
@@ -18,22 +19,37 @@
         <div class="container nouveautes">
             <hr class="border-gray-800">
             <h2 id="fonc-title" class="text-2xl font-semibold my-5 text-center">NOUVEAUTÉS</h2>
-            <div class="row g-4 justify-content-center">
-                
-                <!-- Image frames -->
-                <?php foreach ($data as $movie) {?>
+            <div class="row g-4 justify-content-center">                
+                <?php foreach ($data as $movie) : ?>
                     <div class="col">
                         <div class="image-frame">
-                            <img src="https://image.tmdb.org/t/p/original/<?php echo $movie['poster_path']; ?>" alt="Movie thumbnail for 'Movie Title'" class="img-fluid rounded">
+                            <img src="https://image.tmdb.org/t/p/original/<?= $movie['poster_path'] ?>" alt="Movie thumbnail for 'Movie Title'" class="img-frame img-fluid rounded">
                             <div class="hover-text">
-                                <p>Text to display</p>
+                                <p><i class="fas fa-star" style="color: yellow;"></i>&nbsp;<?= $movie['averagerating'] ?></p>
+                                <p><i class="fas fa-chart-bar"></i>&nbsp;<?= $movie['numvotes'] ?></p>
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+                <?php endforeach ?>
             </div>
         </div> 
     </section>
+
+    <script>
+        //Script qui ajoute le blur sur les images au hover pour que le blur et le hover-text se superposent correctement
+        $(document).ready(function(){
+            $('.img-fluid').hover(function(){
+                $(this).addClass('blur');
+            }, function(){
+                $(this).removeClass('blur');
+            });
+            $('.hover-text').hover(function(){
+                $(this).closest('.image-frame').find('.img-fluid').addClass('blur');
+            }, function(){
+                $(this).closest('.image-frame').find('.img-fluid').removeClass('blur');
+            });
+        });
+    </script>
 
 
     <section id="fonctionnalites" class="py-8 text-white">

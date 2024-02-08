@@ -37,7 +37,6 @@ body {
 .nav-link {
     color: white;
     text-decoration: none;
-    font-weight: bold;
 }
 
 .search-form {
@@ -113,7 +112,7 @@ body {
 }
 
 .fonc-box:hover {
-    background-color: black; /* Replace with your desired hover color */
+    background-color: #1c1c1c; /* Replace with your desired hover color */
 }
 
 .features-grid {
@@ -181,6 +180,44 @@ body {
 
 .container.nouveautes {
     margin-bottom: 7rem;
+}
+
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    z-index: 11; /* Ensure text appears above blur */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Add rounded corners for style */
+}
+
+
+.image-frame {
+    transition: filter 0.4s ease;
+    position: relative; /* Ensure the container is positioned */
+}
+
+.image-frame:hover .hover-text {
+    opacity: 1;
+}
+
+.image-frame {
+    position: relative;
+    display: inline-block;
+}
+.img-fluid {
+    width: 220px; /* Adjust as needed */
+    height: 330px; /* Adjust as needed */
+    overflow: hidden;
+    transition: filter 0.4s ease; /* Transition for the blur effect */
+}
+.img-fluid.blur, .hover-text.blur {
+    filter: blur(5px); /* Apply blur effect */
 }
 
 /* Footer Styles */
@@ -253,4 +290,12 @@ body {
     .footer-link {
         font-size: 16px; /* Réduit la taille sur les petits écrans */
     }
+}
+
+#navbar-submit {
+    transition: background-color 0.3s ease;
+}
+
+#navbar-submit:hover {
+    background-color: #1c1c1c;
 }

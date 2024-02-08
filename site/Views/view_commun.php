@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Content/img/favicon.ico" rel="icon">
     <link href="Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/css/view_home_style.css" rel="stylesheet">
     <link href="Content/css/view_commun_style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <title>Page commun</title>
+    <title>Le Septieme Art - Commun</title>
     
     <?php require 'view_navbar.php'; ?>
     
