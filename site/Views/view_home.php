@@ -25,8 +25,9 @@
                         <div class="image-frame">
                             <img src="https://image.tmdb.org/t/p/original/<?= $movie['poster_path'] ?>" alt="Movie thumbnail for 'Movie Title'" class="img-frame img-fluid rounded">
                             <div class="hover-text">
+                                <p class="poster-title"><?= $movie['primarytitle'] ?></p>
                                 <p><i class="fas fa-star" style="color: yellow;"></i>&nbsp;<?= $movie['averagerating'] ?></p>
-                                <p><i class="fas fa-chart-bar"></i>&nbsp;<?= $movie['numvotes'] ?></p>
+                                <p class="poster-numvotes"><i class="fas fa-chart-bar"></i>&nbsp;<?= $movie['numvotes'] ?></p>
                             </div>
                         </div>
                     </div>

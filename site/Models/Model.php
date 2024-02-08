@@ -171,6 +171,8 @@ class Model {
             ]);
 
             $data = json_decode($response->getBody(), true);
+            $data['tconst'] = $film['tconst'];
+            $data['primarytitle'] = $film['primarytitle'];
             $data['averagerating'] = $film['averagerating'];
             $data['numvotes'] = $film['numvotes'];
             array_push($donnees, $data);
