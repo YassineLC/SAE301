@@ -234,27 +234,47 @@ class Model {
     }
 
     public function getMovieInfo($tconst) {
-        $requete = $this->bd->prepare("SELECT * FROM titlebasics WHERE tconst = :tconst"); 
-        $requete->bindValue(":tconst", "$tconst", PDO::PARAM_STR);
-        $requete->execute();
-        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+    $requete = $this->bd->prepare("SELECT * FROM titlebasics WHERE tconst = :tconst"); 
+    $requete->bindValue(":tconst", "$tconst", PDO::PARAM_STR);
+    $requete->execute();
+    $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-        require_once('Utils/API/vendor/autoload.php');
-        $client = new \GuzzleHttp\Client();
+    require_once('Utils/API/vendor/autoload.php');
+    $client = new \GuzzleHttp\Client();
 
-        foreach($resultat as &$movie) {
-            $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movie['tconst'] . '?language=fr-fr', [
-                'headers' => [
-                    'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
-                    'accept' => 'application/json',
-                ],
-            ]);
+    foreach($resultat as &$movie) {
+        // First API request to get basic movie info
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movie['tconst'] . '?language=fr-fr', [
+            'headers' => [
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                'accept' => 'application/json',
+            ],
+        ]);
 
-            $data = json_decode($response->getBody(), true);
-            $movie = array_merge($movie, $data);
-        }
+        $movieData = json_decode($response->getBody(), true);
+        $movie['apiData'] = $movieData;
+
+        // Second API request to get cast info
+        $castResponse = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movie['tconst'] . '/credits', [
+            'headers' => [
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                'accept' => 'application/json',
+            ],
+        ]);
+
+        $castData = json_decode($castResponse->getBody(), true);
+
+        // Filter only actors (known_for_department: "Acting")
+        $actors = array_filter($castData['cast'], function($person) {
+            return $person['known_for_department'] == 'Acting';
+        });
+
+        $movie['actors'] = $actors;
+    }
 
         return $resultat;
     }
+
 }
+
 

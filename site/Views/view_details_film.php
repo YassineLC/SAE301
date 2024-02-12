@@ -14,7 +14,7 @@
 
     <?php require 'view_navbar.php'; ?>
 
-    <?php var_dump($data); ?>
+    <?php var_dump($data[0]['actors']); ?> 
     
 </body>
 </html>

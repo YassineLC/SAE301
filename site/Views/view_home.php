@@ -11,7 +11,7 @@
 
     <?php require 'view_navbar.php';?>
 
-    <div class="background-image my-5 text-center">
+    <div class="background-image my-5 text-center image-container">
         <img src="Content/img/pulp-fiction-background.jpg" alt="Movie poster for index background" class="rounded mx-auto">
     </div>
     
