@@ -24,7 +24,7 @@
         }
     </script>
 </head>
-<?php require="view_navbar.php";?>
+<?php require "view_navbar.php";?>
 
   
     <div class="carre">
@@ -48,5 +48,5 @@
         </div>
     </div>
     <script src="Content/js/bootstrap.bundle.min.js"></script>
-<?php require="view_end.php";?>
+<?php require "view_end.php";?>
 </html>
