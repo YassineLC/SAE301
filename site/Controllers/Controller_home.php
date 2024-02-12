@@ -19,7 +19,7 @@ class Controller_home extends Controller {
             $this->render("resultat", ['data' => $data]);
         }
         else {
-            echo "Erreur";
+            $this->render("resultat");
         }
     }
 

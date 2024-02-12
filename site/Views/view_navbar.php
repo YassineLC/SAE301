@@ -11,6 +11,7 @@
         });
     });
 </script>
+
 <body>
     <div id="navbar">
         <a class="navbar-brand" href="?controller=home&action=home">

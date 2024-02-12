@@ -25,17 +25,61 @@ class Model {
         return self::$instance;
     }
 
+  
     public function recherche($expression) 
     {
         if (strlen($expression) < 3) {
             return "Les recherches doivent avoir trois caractères minimum";
         }
-        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY numvotes DESC"); 
+
+        // Exécute la requête SQL pour récupérer les données de la base de données
+        $requete = $this->bd->prepare("SELECT * FROM titlebasics JOIN titleratings USING(tconst) WHERE originaltitle ~* :expression ORDER BY numvotes DESC LIMIT 30"); 
         $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
         $requete->execute();
-        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
-        return $resultat;
+        $resultats_bdd = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        require_once('Utils/API/vendor/autoload.php');
+        $client = new \GuzzleHttp\Client();
+        $donnees = [];
+
+        // Parcours des résultats de la base de données
+        foreach($resultats_bdd as $film_bdd) {
+            try {
+                // Fait une requête à l'API pour obtenir les données supplémentaires
+                $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $film_bdd['tconst'] . '?language=fr-fr', [
+                    'headers' => [
+                        'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                        'accept' => 'application/json',
+                    ],
+                ]);
+
+                if ($response->getStatusCode() === 404) {
+                    // Passe au film suivant si le film n'est pas trouvé dans l'API
+                    continue;
+                }
+
+                if ($response->getStatusCode() === 200) {
+                    $donnees_film_api = json_decode($response->getBody(), true);
+
+                    // Vérifie si le film a un poster
+                    if (isset($donnees_film_api['poster_path'])) {
+                        // Fusionne les données de la base de données avec les données de l'API
+                        $donnees_fusionnees = array_merge($film_bdd, $donnees_film_api);
+
+                        $donnees[] = $donnees_fusionnees;
+                    }
+                }
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                // Gère l'exception si la requête échoue
+                continue;
+            }
+        }
+        
+        return $donnees;
     }
+
+
+
 
     public function recherche_avancee($expression, $filtres)
     {
@@ -178,6 +222,15 @@ class Model {
             array_push($donnees, $data);
         }
         return $donnees;
+    }
+
+    public function graphe($expression)
+    {
+        $requete = $this->bd->prepare("SELECT nconst, primaryname, primaryprofession, knownfortitles FROM namebasics WHERE primaryname ~* :expression AND cardinality(string_to_array(knownfortitles, ',')) > 2 AND 'actor' = any(string_to_array(primaryprofession, ',')) limit(1);"); 
+        $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
     }
 }
 

@@ -13,3 +13,5 @@ class Controller_commun extends Controller {
     }
 
 }
+
+?>

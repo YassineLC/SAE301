@@ -66,12 +66,12 @@
 
                     <!-- Feature 1 -->
                     <div class="feature col-md-6">
-                        <a class="feature-block text-decoration-none">
+                        <a class="feature-block text-decoration-none" href="?controller=home&action=recherche">
                             <div class="fonc-box feature-content p-4">
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES SIMPLES</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-coche-100.png" class="feature-img">
-                                    <p class="feature-text-description">La recherche simple permet à l'utilisateur de faire une recherche sur un film ou un acteur en tapant simplement son intitulé (nom du film, nom/prénom de l'acteur)</p>
+                                    <p class="feature-text-description">La recherche simple permet à l'utilisateur de faire une recherche sur un film tapant simplement son intitulé (nom du film)</p>
                                 </div>
                             </div>
                         </a>

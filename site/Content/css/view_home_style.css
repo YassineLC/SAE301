@@ -14,6 +14,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+    margin-bottom: 30px;
 }
 
 .navbar-brand img {
@@ -195,8 +196,6 @@ body {
     padding: 20px 20px; /* Adjust padding for larger spacing on the left and right */
     border-radius: 5px; /* Add rounded corners for style */
 }
-
-
 
 
 .image-frame {
