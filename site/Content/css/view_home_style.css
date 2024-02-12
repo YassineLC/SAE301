@@ -197,6 +197,10 @@ body {
     border-radius: 5px; /* Add rounded corners for style */
 }
 
+.hover-text {
+    color: white;
+}
+
 
 .image-frame {
     transition: filter 0.4s ease;

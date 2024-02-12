@@ -27,7 +27,7 @@
         </ul>
         <form id="myForm" method="post" onsubmit="updateFormAction()" class="search-form">
             <input type="text" id="rechercher" name="rechercher" class="form-control" placeholder="Rechercher">
-            <button id="navbar-submit"type="submit" class="btn-primary">Confirmer</button>
+            <button id="navbar-submit" type="submit" class="btn-primary">Confirmer</button>
         </form>
     </div>
     <script src="Content/js/bootstrap.bundle.min.js"></script>

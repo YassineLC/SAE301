@@ -28,7 +28,7 @@
                 <div class="row no-gutters">
                     <div class="col-md-3">
                         <a href="?controller=details&action=details&tconst=<?= $ligne['tconst'] ?>">
-                        <img src="https://image.tmdb.org/t/p/original/<?= $ligne['poster_path'] ?>" class="card-img" alt="<?= $ligne['originaltitle'] ?>">
+                            <img src="https://image.tmdb.org/t/p/original/<?= $ligne['poster_path'] ?>" class="card-img" alt="<?= $ligne['originaltitle'] ?>">
                         </a>
                     </div>
                     <div class="col-md-8">

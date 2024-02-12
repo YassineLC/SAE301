@@ -10,8 +10,6 @@
     <title>Détails film</title>
 </head>
 
-<body>
-
     <?php require 'view_navbar.php'; ?>
 
     <?php var_dump($data[0]['actors']); ?> 
