@@ -18,3 +18,18 @@
 .input-film::placeholder {
     color: white ;
 }
+
+a {
+    text-decoration: none !important;
+}
+
+/* CSS pour ajouter une transition de couleur sur le hover des titres */
+h5.card-title {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s; /* Ajoute une transition de couleur de 0.3 seconde */
+}
+
+h5.card-title:hover {
+    color: #6a6a6a; /* Change la couleur du texte au survol */
+}

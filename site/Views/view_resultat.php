@@ -27,11 +27,15 @@
             <div class="card mb-3 card-container" style="max-width: 1000px;">
                 <div class="row no-gutters">
                     <div class="col-md-3">
+                        <a href="?controller=details&action=details&tconst=<?= $ligne['tconst'] ?>">
                         <img src="https://image.tmdb.org/t/p/original/<?= $ligne['poster_path'] ?>" class="card-img" alt="<?= $ligne['originaltitle'] ?>">
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $ligne['originaltitle'] ?></h5>
+                            <a href="?controller=details&action=details&tconst=<?= $ligne['tconst'] ?>">
+                                <h5 class="card-title"><?= $ligne['originaltitle'] ?></h5>
+                            </a>
                             <a class="card-text"><small class="text-muted"><?= $ligne['startyear'] ?></small></a>
                             <p class="card-text"><?= $ligne['overview'] ?></p>
                         </div>
@@ -47,7 +51,7 @@
 
     <?php endif ?>
 
-<script>
+    <script>
     $(document).ready(function() {
         $('#search-form').on('submit', function(event) {
             event.preventDefault(); // Empêche le rechargement de la page

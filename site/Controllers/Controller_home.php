@@ -8,7 +8,7 @@ class Controller_home extends Controller {
 
     public function action_home() {
         $m = Model::getModel();
-        $data = $m->getMoviesInfo(5);
+        $data = $m->getIndexMovies(5);
         $this->render("home", $data);
     }
 

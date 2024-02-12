@@ -71,7 +71,7 @@
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES SIMPLES</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-coche-100.png" class="feature-img">
-                                    <p class="feature-text-description">La recherche simple permet à l'utilisateur de faire une recherche sur un film tapant simplement son intitulé (nom du film)</p>
+                                    <p class="feature-text-description"><br />La recherche simple permet à l'utilisateur de faire une recherche sur un film tapant simplement son intitulé (nom du film)</p>
                                 </div>
                             </div>
                         </a>

@@ -187,7 +187,7 @@ class Model {
         return $result;
     }
 
-    public function getMoviesInfo($number) {
+    public function getIndexMovies($number) {
         $sql = "SELECT tb.tconst, tb.primarytitle, tr.averagerating, tr.numvotes
                 FROM titlebasics tb
                 JOIN titleratings tr ON tb.tconst = tr.tconst
@@ -232,6 +232,29 @@ class Model {
         $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $resultat;
     }
-}
 
+    public function getMovieInfo($tconst) {
+        $requete = $this->bd->prepare("SELECT * FROM titlebasics WHERE tconst = :tconst"); 
+        $requete->bindValue(":tconst", "$tconst", PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        require_once('Utils/API/vendor/autoload.php');
+        $client = new \GuzzleHttp\Client();
+
+        foreach($resultat as &$movie) {
+            $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/' . $movie['tconst'] . '?language=fr-fr', [
+                'headers' => [
+                    'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                    'accept' => 'application/json',
+                ],
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            $movie = array_merge($movie, $data);
+        }
+
+        return $resultat;
+    }
+}
 
