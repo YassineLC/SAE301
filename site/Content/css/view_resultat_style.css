@@ -33,3 +33,7 @@ h5.card-title {
 h5.card-title:hover {
     color: #6a6a6a; /* Change la couleur du texte au survol */
 }
+
+.card-img {
+    box-sizing: content-box !important;
+}

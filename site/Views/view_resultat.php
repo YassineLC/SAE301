@@ -17,18 +17,26 @@
         <input id="search-input" class="input-film col-md-6 offset-md-3 text-center" type="text" placeholder="Rechercher un film">
     </form>
 
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-light" id="loader" role="status" style="display: none;">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
     <?php if (isset($_GET['recherche'])) : ?>
 
     <div class="container">
 
         <h1 id="titre-result">Résultats</h1>
 
+        <div id="results-container">
+
         <?php foreach($data as $ligne) : ?>
             <div class="card mb-3 card-container" style="max-width: 1000px;">
                 <div class="row no-gutters">
                     <div class="col-md-3">
                         <a href="?controller=details&action=details&tconst=<?= $ligne['tconst'] ?>">
-                            <img src="https://image.tmdb.org/t/p/original/<?= $ligne['poster_path'] ?>" class="card-img" alt="<?= $ligne['originaltitle'] ?>">
+                            <img src="https://image.tmdb.org/t/p/original/<?= $ligne['poster_path'] ?>" class="card-img poster-img" alt="<?= $ligne['originaltitle'] ?>">
                         </a>
                     </div>
                     <div class="col-md-8">
@@ -43,35 +51,19 @@
                 </div>
             </div>
         <?php endforeach ?>
+
+        </div>
+
     </div>
 
     <?php else : ?>
-
         <h4 class="text-center text-white my-5" >Faites une recherche sur la barre de recherche pour afficher les résultats</h4>
-
     <?php endif ?>
 
-    <script>
-    $(document).ready(function() {
-        $('#search-form').on('submit', function(event) {
-            event.preventDefault(); // Empêche le rechargement de la page
-            var rechercheValue = $('#search-input').val();
-            var actionUrl = '?controller=home&action=recherche&recherche=' + encodeURIComponent(rechercheValue);
-            $(this).attr('action', actionUrl);
-            window.location.href = actionUrl;
-        });
-
-        // Écouteur d'événements pour la touche "Entrée"
-        $('#search-input').keypress(function(event) {
-            if (event.keyCode === 13) {
-                $('#search-form').submit(); // Soumet le formulaire si la touche "Entrée" est pressée
-            }
-        });
-    });
-</script>
+    <script src="Content/js/view_resultat.js"></script>
 
 
-<script src="Content/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <?php if (isset($_GET['recherche']))
     require 'view_end.php';

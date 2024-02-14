@@ -5,7 +5,7 @@ require_once "Models/Model.php";
 require_once "Controllers/Controller.php";
 
 //Liste des contrôleurs -- A RENSEIGNER
-$controllers = ["home", "commun", "details", "rapprochement"];
+$controllers = ["home", "commun", "details", "rapprochement", "recherche_avancee"];
 //Nom du contrôleur par défaut-- A RENSEIGNER
 $controller_default = "home";
 

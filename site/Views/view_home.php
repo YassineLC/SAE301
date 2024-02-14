@@ -7,19 +7,32 @@
     <link href="Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/css/view_home_style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <title>Le Septieme Art - Accueil</title>
 
     <?php require 'view_navbar.php';?>
 
-    <div class="background-image my-5 text-center image-container">
-        <img src="Content/img/pulp-fiction-background.jpg" alt="Movie poster for index background" class="rounded mx-auto">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-0">
+                <div class="background-image my-4 text-center image-container">
+                    <img src="Content/img/barbie_back_img.webp" alt="Movie poster for index background" class="mx-auto w-100" style="opacity: 0.3;"> <!-- Ajout de la classe w-100 pour que l'image occupe toute la largeur -->
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="text-white">Bienvenue chef</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     
     <section class="py-8 text-white">
         <div class="container nouveautes">
             <hr class="border-gray-800">
             <h2 id="fonc-title" class="text-2xl font-semibold my-5 text-center">NOUVEAUTÉS</h2>
-            <div class="row g-4 justify-content-center">                
+            <div class="row g-4 justify-content-center" id="all-posters">                
                 <?php foreach ($data as $movie) : ?>
                     <div class="col">
                         <a href="?controller=details&action=details&tconst=<?= $movie['tconst'] ?>">
@@ -28,7 +41,7 @@
                                 <div class="hover-text">
                                     <p class="poster-title"><?= $movie['primarytitle'] ?></p>
                                     <p><i class="fas fa-star" style="color: yellow;"></i>&nbsp;<?= $movie['averagerating'] ?></p>
-                                    <p class="poster-numvotes"><i class="fas fa-chart-bar"></i>&nbsp;<?= $movie['numvotes'] ?></p>
+                                    <p class="poster-numvotes"><i class="fas fa-chart-bar"></i>&nbsp;<?= number_format($movie['numvotes'], 0, '.', ',') ?></p>
                                 </div>
                             </div>
                         </a>
@@ -37,22 +50,6 @@
             </div>
         </div> 
     </section>
-
-    <script>
-        //Script qui ajoute le blur sur les images au hover pour que le blur et le hover-text se superposent correctement
-        $(document).ready(function(){
-            $('.img-fluid').hover(function(){
-                $(this).addClass('blur');
-            }, function(){
-                $(this).removeClass('blur');
-            });
-            $('.hover-text').hover(function(){
-                $(this).closest('.image-frame').find('.img-fluid').addClass('blur');
-            }, function(){
-                $(this).closest('.image-frame').find('.img-fluid').removeClass('blur');
-            });
-        });
-    </script>
 
 
     <section id="fonctionnalites" class="py-8 text-white">
@@ -73,7 +70,7 @@
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES SIMPLES</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-coche-100.png" class="feature-img">
-                                    <p class="feature-text-description"><br />La recherche simple permet à l'utilisateur de faire une recherche sur un film tapant simplement son intitulé (nom du film)</p>
+                                    <p class="feature-text-description"><br />La recherche simple permet à l'utilisateur de faire une recherche sur un film en tapant simplement son intitulé (nom du film)</p>
                                 </div>
                             </div>
                         </a>
@@ -130,5 +127,30 @@
             </div>
         </div>
     </section>
+
+    <script src="Content/js/jquery-3.7.1.min.js.js"></script>
+    <script>
+        //Script qui ajoute le blur sur les images au hover pour que le blur et le hover-text se superposent correctement
+        $(document).ready(function(){
+            $('.img-fluid').hover(function(){
+                $(this).addClass('blur');
+            }, function(){
+                $(this).removeClass('blur');
+            });
+            $('.hover-text').hover(function(){
+                $(this).closest('.image-frame').find('.img-fluid').addClass('blur');
+            }, function(){
+                $(this).closest('.image-frame').find('.img-fluid').removeClass('blur');
+            });
+        });
+
+        $(document).ready(function(){
+    $('#all-posters').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1
+    });
+});
+    </script>
 
 <?php require 'view_end.php';?>
