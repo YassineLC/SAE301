@@ -130,8 +130,8 @@ class Model {
         return $resultat;
     }
 
-
-    function recherche_commun($param1, $param2) {
+    #Recherche Commun Obsolète
+    function recherche_commun2($param1, $param2) {
         $query = '';
         $paramType = '';
     
@@ -185,6 +185,43 @@ class Model {
         }
     
         return $result;
+    }
+    //NEW Recherche commun
+    function recherche_commmun($param1, $param2, $db) {
+        // Requête pour obtenir l'ID du premier paramètre
+        $stmtId1 = $db->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name1');
+        $stmtId1->bindParam(':name1', $param1, PDO::PARAM_STR);
+        $stmtId1->execute();
+        $id1 = $stmtId1->fetchColumn();
+    
+        // Requête pour obtenir l'ID du deuxième paramètre
+        $stmtId2 = $db->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name2');
+        $stmtId2->bindParam(':name2', $param2, PDO::PARAM_STR);
+        $stmtId2->execute();
+        $id2 = $stmtId2->fetchColumn();
+    
+        // Requête pour trouver des films en commun
+        $query = '
+            SELECT DISTINCT tb.tconst, tb.primarytitle
+            FROM titleprincipals tp
+            JOIN titlebasics tb ON tp.tconst = tb.tconst
+            WHERE tp.nconst = :id1
+            AND tb.tconst IN (
+                SELECT tp2.tconst
+                FROM titleprincipals tp2
+                WHERE tp2.nconst = :id2
+            )
+        ';
+    
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id1', $id1, PDO::PARAM_STR);
+        $stmt->bindParam(':id2', $id2, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        echo "Ensemble des films en commun :";
+        print_r($result);
     }
 
     public function getIndexMovies($number) {
