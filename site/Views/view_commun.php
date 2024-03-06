@@ -13,30 +13,85 @@
 <body>
     
     <?php require 'view_navbar.php'; ?>
-    
-    <div id="button">
-        <button type="button" class="btn btn-light">Films</button>
-        <button type="button" class="btn btn-light">Acteurs</button>
-    </div>
-    
-    
-    <div class="recherche1">
-        <input type="text" id="search1" name="search1" class="recherche1_bis" placeholder="Entrer un film ou un acteur">
-        <input type="text" id="search2" name="search2" class="recherche2_bis" placeholder="Entrer un film ou un acteur ">
-        <button class="recherche_button" onclick="rechercher()">Rechercher</button>
+    <body>
+    <div id="navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark rounded">
+            <div class="container">
+                <a class="navbar-brand me-auto" href="#">
+                    <img src="Content/img/logo-le-septieme-art.png" alt="Logo">
+                </a>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">COMMUN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">RAPPROCHEMENT</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="searchbar" class="ml-auto">
+                    <form id="myForm" method="post" onsubmit="updateFormAction()" class="d-flex">
+                        <input type="text" id="rechercher" name="rechercher" class="form-control me-2" placeholder="Rechercher">
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
     </div>
 
-
-    <div class="recherche">
+    <div class="carre">
         <div class="texte">
-            <p> FILM JOUE EN COMMUN/ ACTEURS EN COMMUN</p>
+            Recherche avancée
         </div>
     </div>
-
-    <div class="resultat">
-        <div class="texte">
-            <p> RESULTAT </p>
+    
+    <div class="button">
+        <button type="button" class="btn btn-light" onclick="updateFilters('films')">Films</button>
+        <button type="button" class="btn btn-light" onclick="updateFilters('acteurs')">Acteurs</button>
+    </div>
+    
+    <div class="resultat-container">
+        <div class="gauche">
+            <div class="filtre">
+                <div>Filtres</div>
+            </div>
+        </div>
+        <div class="droite">
+            <div class="recherche">
+                <input type="text" class="crecherche" placeholder="Recherche">
+            </div>
+            <div class="resultat">
+                <div class="texte">
+                    RESULTAT 
+                </div>
+            </div>
         </div>
     </div>
+    
+    
+    
 
+
+    
+    <script src="Content/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateFilters(type) {
+            var filtersDiv = document.querySelector('.filtre');
+    
+            filtersDiv.innerHTML = "<div>Filtres</div>";
+    
+            if (type === 'films') {
+            filtersDiv.innerHTML += "<label>Type: <select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></label> <br>";
+            filtersDiv.innerHTML += "<label>Genre: <select><option value='Action'>Action</option><option value='Comedy'>Comédie</option><option value='Drama'>Drama</option></select></label>";
+            } else if (type === 'acteurs') {
+                filtersDiv.innerHTML += "<label>Type: <select><option value='Acteur'>Acteur</option><option value='Réalisateur'>Réalisateur</option></select></label>";
+                filtersDiv.innerHTML += "<label>Année de naissance: <input type='text' name='birthyear'></label>";
+                filtersDiv.innerHTML += "<label>Année de décès: <input type='text' name='deathyear'></label>";
+                filtersDiv.innerHTML += "<label>Profession principale: <input type='text' name='primaryprofession'></label>";
+            }
+        }
+    </script>
 <?php require 'view_end.php'; ?>
