@@ -22,7 +22,7 @@
                 <a class="nav-link" href="?controller=commun&action=commun">COMMUN</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">RAPPROCHEMENT</a>
+                <a class="nav-link" href="?controller=rapprochement&action=rapprochement">RAPPROCHEMENT</a>
             </li>
         </ul>
         <form id="myForm" method="post" onsubmit="updateFormAction()" class="search-form">

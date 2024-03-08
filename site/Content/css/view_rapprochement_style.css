@@ -1,3 +1,11 @@
+body{
+    position:relative;
+}
+
+.texte {
+    height: 100%; 
+}
+
 .recherche1 {
     height: 60px;
     color: #FFFFFF; 
@@ -15,6 +23,7 @@
     color: white;
     background-color: #312C2C;
 }
+
 .recherche2_bis {
     text-align: center;
     border-radius: 50px;
@@ -34,16 +43,34 @@
     width: 120px;
 }
 
-.recherche {
-    width: 650px;
-    height: 60px;
+.resultat {
+    width: 1000px; 
+    min-height: 10vh;
     background-color: #312C2C;
-    color: #FFFFFF; 
-    border-radius: 15px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 15px;
-    margin-bottom: 15px;
+    color: #fff; 
+    border-radius: 15px; 
+    text-align: center; 
+    line-height: 100px;
+    margin: 0 auto; 
+    margin-top: 60px;
+    margin-bottom: 50px;
+    overflow: auto;
+}
+
+@media (max-width: 768px) {
+    .recherche1 {
+        margin-bottom: 150px; /* Augmenter l'espacement en bas pour les écrans de téléphone */
+    }
+
+    .recherche1_bis,
+    .recherche2_bis,
+    .recherche_button {
+        margin-bottom: 10px; /* Réduire l'espacement en bas pour les écrans de téléphone */
+    }
+
+    .resultat {
+        flex-direction: column;
+        width: 100%;
+    }
 
 }

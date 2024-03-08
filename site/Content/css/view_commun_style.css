@@ -1,15 +1,23 @@
-
-#button{
-    text-align: center;
-    margin-top: 40px;
-    margin-left: 50px;
+body{
+    position:relative;
 }
 
-.btn-light {
+.texte {
+    height: 100%; 
+}
+
+.button{
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.btn-light{
     width: 100px;
     background-color: #D5D5D5D5;
     color: white;
     border-radius: 50px;
+
 }
 
 .recherche1 {
@@ -49,45 +57,34 @@
     width: 120px;
 }
 
-
-.recherche {
-    width: 650px;
-    height: 60px;
-    background-color: #312C2C;
-    color: #FFFFFF; 
-    border-radius: 15px;
-    text-align: center;
-    margin-left: 15%;
-}
-
 .resultat {
-    width: 500px;
-    height: 400px;
+    width: 1000px; 
+    min-height: 10vh;
     background-color: #312C2C;
-    color: #FFFFFF; 
-    border-radius: 15px;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 20%);
+    color: #fff; 
+    border-radius: 15px; 
+    text-align: center; 
+    line-height: 100px;
+    margin: 0 auto; 
+    margin-top: 60px;
+    margin-bottom: 50px;
+    overflow: auto;
 }
 
-
-.texte {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%; 
-    @media screen and (max-width: 768px) {
-        margin-bottom: 3rem;
+@media (max-width: 768px) {
+    .recherche1 {
+        margin-bottom: 150px; /* Augmenter l'espacement en bas pour les écrans de téléphone */
     }
 
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
-        margin-bottom: 3rem;
+    .recherche1_bis,
+    .recherche2_bis,
+    .recherche_button {
+        margin-bottom: 10px; /* Réduire l'espacement en bas pour les écrans de téléphone */
     }
 
-    @media screen and (min-width: 1025px) {
-        margin-bottom: 5rem;
+    .resultat {
+        flex-direction: column;
+        width: 100%;
     }
+
 }
-
-
