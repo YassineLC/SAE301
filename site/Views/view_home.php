@@ -20,7 +20,7 @@
                 <div class="background-image my-4 text-center image-container">
                     <img src="Content/img/barbie_back_img.webp" alt="Movie poster for index background" class="mx-auto w-100" style="opacity: 0.3;"> <!-- Ajout de la classe w-100 pour que l'image occupe toute la largeur -->
                     <div class="position-absolute top-50 start-50 translate-middle">
-                        <h1 class="text-white">Bienvenue chef</h1>
+                        <h1 class="text-white text-center">Bienvenue chef</h1>
                     </div>
                 </div>
             </div>
