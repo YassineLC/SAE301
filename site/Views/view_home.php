@@ -101,7 +101,7 @@
                                 <h3 class="text-center text-xl font-semibold mt-2">COMMUN</h3>
                                 <div class="content-with-img">
                                     <img src="Content/img/icons8-dossier-ouvert-120.png" class="feature-img" >
-                                    <p class="feature-text-description">La recherche simple permet à l'utilisateur de faire une recherche sur un film ou un acteur en tapant simplement son intitulé (nom du film, nom/prénom de l'acteur)</p>
+                                    <p class="feature-text-description">La recherche commun permet à l'utilisateur de faire une recherche sur un film ou un acteur en tapant simplement son intitulé (nom du film, nom/prénom de l'acteur)</p>
                                 </div>
                             </div>
                         </a>
