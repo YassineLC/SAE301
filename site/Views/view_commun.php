@@ -13,11 +13,6 @@
 
     <?php require "view_navbar.php";?>
 
-        <div class="button">
-            <button type="button" class="btn btn-light">Films</button>
-            <button type="button" class="btn btn-light">Acteurs</button>
-        </div>
-
 
         <div class="recherche1">
         <form action="nom_du_script.php" method="GET">
