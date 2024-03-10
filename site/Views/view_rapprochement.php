@@ -9,7 +9,7 @@
     <link href="Content/css/view_home_style.css" rel="stylesheet">
     <link href="Content/css/view_rapprochement_style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <title>Le Septieme Art - Recherche avancÃ©e </title>
+    <title>Le Septieme Art - Recherche avancée </title>
 
     <?php require "view_navbar.php";?>
 
@@ -24,8 +24,17 @@
         <div class="resultat" >
             <div class="texte">
                 <p> En attente de recherche </p> 
+                <?php
+                $filePath = '/var/www/html/GitHub/GRP/SAE301/scripts/result.json';
+                $jsonContent = file_get_contents($filePath);
+                echo "<h2>Résultat </h2>";
+                echo "<pre>";
+                print_r($result);
+                echo "</pre>";
+                ?>
             </div>
         </div>
-    
+        
+
 
     <?php require "view_end.php";?>

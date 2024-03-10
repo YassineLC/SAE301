@@ -261,14 +261,6 @@ class Model {
         return $donnees;
     }
 
-    public function graphe($expression)
-    {
-        $requete = $this->bd->prepare("SELECT nconst, primaryname, primaryprofession, knownfortitles FROM namebasics WHERE primaryname ~* :expression AND cardinality(string_to_array(knownfortitles, ',')) > 2 AND 'actor' = any(string_to_array(primaryprofession, ',')) limit(1);"); 
-        $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
-        $requete->execute();
-        $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
-        return $resultat;
-    }
 
     public function getMovieInfo($tconst) {
         $requete = $this->bd->prepare("SELECT * FROM titlebasics tb JOIN titleratings tr ON tb.tconst = tr.tconst WHERE tb.tconst = :tconst"); 
@@ -368,6 +360,87 @@ class Model {
             $data['known_for'] = $personMoviesData['person_results'][0]['known_for'];
 
             return $data;
+        }
+        
+        public function film($expression)
+        {
+            $requete = $this->bd->prepare("SELECT tconst FROM titlebasics WHERE originaltitle= :expression");
+            $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
+            $requete->execute();
+            $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+            return $resultat;
+        }
+    
+    	public function nom($expression)
+        {
+            $requete = $this->bd->prepare("SELECT * from get_popular_actor(':expression');"); 
+            $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
+            $requete->execute();
+            $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+            return $resultat;
+        }
+        
+    public function rapprochementNom($expression1, $expression2)
+        {
+            $source= $this->nom($expression1);
+            $target= $this->nom($expression2);
+            return $this->sendData($source,$target); 
+        }
+    
+    public function rapprochementFilm($expression1, $expression2)
+        {
+            $source= $this->film($expression1);
+            $target= $this->film($expression2);
+            return $this->sendData($source,$target); 
+        }
+    
+    function execution($ids, $isTitle = true) 
+        {
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            if ($isTitle) {
+                $query = "SELECT tconst, originaltitle FROM resultats_intermediaires WHERE tconst IN ($placeholders)";
+            } else {
+                $query = "SELECT nconst, primaryname FROM resultats_intermediaires WHERE nconst IN ($placeholders)";
+            }
+        
+            $requete = $this->bd->prepare($query);
+            $stmt->execute(array_values($ids)); // Utilisez array_values pour ré-indexer les clés si nécessaire
+            $requete->execute();
+            $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+            return $resultat;
+        }
+    
+    function alternerTableaux(array $tab1, array $tab2) 
+    {
+            $result = [];
+            $maxLength = max(count($tab1), count($tab2));
+        
+            for ($i = 0; $i < $maxLength; $i++) {
+                if (isset($tab1[$i])) {
+                    $result[] = $tab1[$i];
+                }
+                if (isset($tab2[$i])) {
+                    $result[] = $tab2[$i];
+                }
+            }
+        
+            return $result;
+    }
+
+    function sendData($source, $target) {
+            $scriptPath = '/var/www/html/GitHub/GRP/SAE301/scripts/rapprochement.py';
+            
+            // Construction de la commande
+            $command = "python3 " . escapeshellarg($scriptPath) . " " . escapeshellarg($source) . " " . escapeshellarg($target);
+            
+            // Exécution du script Python et capture de la sortie
+            $output = shell_exec($command);
+            
+            // Décodage de la sortie JSON en tableau PHP
+            $result = json_decode($output, true);
+            
+            // Transmettre les données au modèle
+            return $output;
         }
 
 }
