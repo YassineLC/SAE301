@@ -36,6 +36,8 @@
             <div class="filtre">
                 <div>Filtres</div>
             </div>
+            <button type="button" class="btn btn-primary" onclick="submitFilters()">Appliquer les filtres</button>
+            
         </div>
         <div class="droite">
             <div class="recherche">
@@ -71,6 +73,39 @@
                 filtersDiv.innerHTML += "<label>Profession principale: <input type='text' name='primaryprofession'></label>";
             }
         }
+        function submitFilters() {
+        var rechercheValue = document.querySelector('.crecherche').value;
+        var typeValue = document.querySelector('.button .active').innerText.toLowerCase(); // Récupère le type actif
+        var filtersDiv = document.querySelector('.filtre');
+        var filters = {};
+
+        if (typeValue === 'films') {
+            filters.type = 'film';
+            filters.genre = filtersDiv.querySelector('select[name="genre"]').value;
+        } else if (typeValue === 'acteurs') {
+            filters.type = 'personne';
+            filters.birthyear = filtersDiv.querySelector('input[name="birthyear"]').value;
+            filters.deathyear = filtersDiv.querySelector('input[name="deathyear"]').value;
+            filters.primaryprofession = filtersDiv.querySelector('input[name="primaryprofession"]').value;
+        }
+
+        //req au model
+        fetch('?controller=home&action=recherche_avancee', {
+            method: 'POST',
+            body: JSON.stringify({
+                expression: rechercheValue,
+                filters: filters
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+        })
+        .catch(error => console.error('Erreur lors de la récupération des résultats :', error));
+    }
     </script>
 </body>
 </html>
