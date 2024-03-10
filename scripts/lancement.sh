@@ -40,14 +40,6 @@ echo "Toutes les vérifications sont passées. Continuation du script."
 # Assurer que le script s'arrête en cas d'erreur
 set -e
 
-# Assurer que les scripts shell, SQL et Python sont exécutables
-chmod +777 telechargement.sh
-chmod +777 tables.sql
-chmod +777 ajout.sql
-chmod +777 lancement.sh
-chmod +777 rapprochement.py
-chmod +777 extraire_donnee.py
-
 # Affichage du message de début
 echo "Début du processus centralisé"
 
@@ -56,6 +48,15 @@ read -p "Veuillez entrer le chemin complet du répertoire SAE/scripts: " chemin_
 
 # Se déplacer vers le répertoire spécifié
 cd "$chemin_scripts"
+
+# Assurer que les scripts shell, SQL et Python sont exécutables
+chmod +777 ./
+chmod +777 telechargement.sh
+chmod +777 tables.sql
+chmod +777 ajout.sql
+chmod +777 lancement.sh
+chmod +777 rapprochement.py
+chmod +777 extraire_donnee.py
 
 # Demander à l'utilisateur les informations de connexion à la base de données
 read -p "Entrez le nom d'utilisateur de la base de données (PGUSER): " PGUSER
@@ -87,7 +88,7 @@ echo "Ajout des index avec ajout.sql"
 PGPASSWORD="$PGPASSWORD" psql -h "$PGHOST" -d "$PGDATABASE" -U "$PGUSER" -f "ajout.sql"
 
 # Exécution du script Python pour création du graphe 
-python3 extraire_donnee.py
+python3 extraire_donnee.py $PGUSER $PGPASSWORD $PGHOST $PGDATABASE
 chmod +777 graph.pickle
 
 echo "Processus centralisé terminé avec succès"

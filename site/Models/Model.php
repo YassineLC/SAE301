@@ -428,7 +428,7 @@ class Model {
     }
 
     function sendData($source, $target) {
-            $scriptPath = '/var/www/html/GitHub/GRP/SAE301/scripts/rapprochement.py';
+            $scriptPath = '/var/www/html/GitHub/SAE/SAE301/scripts/rapprochement.py';
             
             // Construction de la commande
             $command = "python3 " . escapeshellarg($scriptPath) . " " . escapeshellarg($source) . " " . escapeshellarg($target);

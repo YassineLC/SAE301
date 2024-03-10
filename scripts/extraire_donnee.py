@@ -1,12 +1,19 @@
 import psycopg2
 import networkx as nx
 import pickle
+import os
+import sys
 
+def save(graphe, path):
+		f = open(path, 'wb')
+		pickle.dump(graphe, f)
+		f.close()
+            
 # Paramètres de connexion à la base de données
-host = "localhost"
-dbname = "sae"
-user = "melvyn"
-password = "4774"
+user = sys.argv[1]
+password = sys.argv[2]
+host = sys.argv[3]
+dbname = sys.argv[4]
 
 conn_string = f"host={host} dbname={dbname} user={user} password={password}"
 
@@ -34,10 +41,14 @@ print(f"Nombre de nœuds : {G.number_of_nodes()}")
 print(f"Nombre d'arêtes : {G.number_of_edges()}")
 
 # Chemin où le graphe sérialisé sera sauvegardé
-graph_path = './graph.pickle'
+current_dir = os.path.dirname(__file__)
 
-with open(graph_path, 'wb') as f:
-    pickle.dump(G, f)
+# Construire le chemin vers graph.pickle de manière dynamique
+graph_path = os.path.join(current_dir, 'graph.pickle')
+
+#with open(graph_path, 'wb') as f:
+#    pickle.dump(G, f)
+save(G,graph_path)
 
 print(f"Graphe sauvegardé dans {graph_path}")
 

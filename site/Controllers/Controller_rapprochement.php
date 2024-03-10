@@ -23,7 +23,7 @@ class Controller_rapprochement extends Controller {
             {
                 echo "Erreur: pas bon element dans type";
             }
-            $this->render("test", ['data' => $data]);
+            $this->render("rapprochement", ['data' => $data]);
         }
         else {
             echo "Erreur: Manque element";
