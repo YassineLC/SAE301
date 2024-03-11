@@ -1,12 +1,6 @@
 <?php
-
 class Controller_recherche_avancee extends Controller {
-
-    public function action_default() {
-        $this->action_recherche_avancee();
-    }
-
-    public function recherche_avancee() {
+    public function action_recherche_avancee() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['expression']) && isset($_POST['filters'])) {
             $expression = $_POST['expression'];
             $filters = $_POST['filters'];
@@ -18,7 +12,7 @@ class Controller_recherche_avancee extends Controller {
             exit;
         }
     }
-
 }
+
 
 ?>
