@@ -80,6 +80,20 @@
         </div>
     </div>
 
+    <div class="scrolling-wrapper">
+            <?php $director = array_slice($data[0]['director'], 0, 3);?>
+            <?php foreach($director as $directors): ?>
+                <?php if (!empty($directors['profile_path']) && ($directors['job'] === 'Director')): ?>
+                    <div class="card bg-dark text-white" style="width: 200px;">
+                        <img src="https://image.tmdb.org/t/p/w200<?= $directors['profile_path'] ?>" alt="<?= $directors['name'] ?>" class="img-fluid">
+                        <div class="card-body">
+                        <h5 class="card-title"><?= $directors['name'] ?></h5>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
 
 
 

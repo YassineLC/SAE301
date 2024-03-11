@@ -298,7 +298,12 @@ class Model {
                 return $person['known_for_department'] == 'Acting';
             });
 
+            $realisateurs = array_filter($castData['crew'], function($real) {
+                return $real['known_for_department'] == 'Directing';
+            });
+
             $movie['actors'] = $actors;
+            $movie['director'] = $realisateurs;
         }
 
             return $resultat;
