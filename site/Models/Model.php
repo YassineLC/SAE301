@@ -222,6 +222,7 @@ class Model {
     
         echo "Ensemble des films en commun :";
         print_r($result);
+        return $result;
     }
 
     public function getIndexMovies($number) {
