@@ -90,7 +90,7 @@
         }
 
         //req au model
-        fetch('?controller=home&action=recherche_avancee', {
+        fetch('?controller=recherche_avancee&action=recherche_avancee', {
             method: 'POST',
             body: JSON.stringify({
                 expression: rechercheValue,
