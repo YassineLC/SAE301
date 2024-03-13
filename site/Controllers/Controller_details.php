@@ -16,6 +16,17 @@ class Controller_details extends Controller {
             $this->render("details_personne", $data);
         }
     }
+
+    public function action_details_v2() {
+        $m = Model::getModel() ;
+        if (isset($_GET['info']) && strpos($_GET['info'], 'nm') === 0) {
+            $data = $m->getMovieInfo($_GET['info']);
+            $this->render("details_film", $data);
+        } elseif (isset($_GET['info']) && strpos($_GET['info'], 'tt') === 0) {
+            $data = $m->getPersonInfo($_GET['info']);
+            $this->render("details_personne", $data);
+        }
+    }
 }
 
 ?>

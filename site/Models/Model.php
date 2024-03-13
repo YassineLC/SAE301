@@ -369,26 +369,26 @@ class Model {
         
         public function film($expression)
         {
-            $requete = $this->bd->prepare("SELECT tconst FROM titlebasics WHERE originaltitle= :expression");
+            $requete = $this->bd->prepare("SELECT tconst FROM titlebasics WHERE originaltitle= :expression and titletype = 'movie';");
             $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
             $requete->execute();
             $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
             return $resultat;
         }
     
-    	public function nom($expression)
+    	public function nconAct($expression)
         {
-            $requete = $this->bd->prepare("SELECT * from get_popular_actor(':expression');"); 
+            $requete = $this->bd->prepare("SELECT nconst FROM get_popular_actor(:expression);"); 
             $requete->bindValue(":expression", "$expression", PDO::PARAM_STR);
             $requete->execute();
-            $resultat = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $resultat = $requete->fetchColumn();
             return $resultat;
         }
         
     public function rapprochementNom($expression1, $expression2)
         {
-            $source= $this->nom($expression1);
-            $target= $this->nom($expression2);
+            $source= $this->nconAct($expression1);
+            $target= $this->nconAct($expression2);
             return $this->sendData($source,$target); 
         }
     
@@ -433,7 +433,13 @@ class Model {
     }
 
     function sendData($source, $target) {
-            $scriptPath = '/var/www/html/GitHub/SAE/SAE301/scripts/rapprochement.py';
+            $baseDir = __DIR__;
+    
+            // Construction du chemin relatif vers le script Python`
+            $relativePathToScript = '../../scripts/rapprochement.py';
+
+            // Convertir en chemin absolu
+            $scriptPath = realpath($baseDir . '/' . $relativePathToScript);
             
             // Construction de la commande
             $command = "python3 " . escapeshellarg($scriptPath) . " " . escapeshellarg($source) . " " . escapeshellarg($target);
@@ -442,12 +448,79 @@ class Model {
             $output = shell_exec($command);
             
             // Décodage de la sortie JSON en tableau PHP
-            $result = json_decode($output, true);
-            
-            // Transmettre les données au modèle
-            return $output;
+            $resultats_bdd = json_decode($output, true);
+
+
+            if ($resultats_bdd['status'] === 'success') {
+                require_once('Utils/API/vendor/autoload.php');
+                $client = new \GuzzleHttp\Client();
+                $paths = $resultats_bdd['path']; // Tableau des identifiants
+                $donnees = [];
+                $headers = [
+                    'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAxNTJmZGQ1ZWYyMmUyYzdkNmRkZmQ1NzIyNzE3NyIsInN1YiI6IjY1OWQ2YmRiYjZjZmYxMDFhNjc0OWQyOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XMVnYm5EpfHU2S-X3FojIPw0CyNkvu8fEppBrw0Bt5s',
+                    'accept' => 'application/json',
+                ];
+        
+                foreach ($paths as $id) {
+                    if (substr($id, 0, 2) === 'tt') { // Pour les films
+                        $url = 'https://api.themoviedb.org/3/movie/' . $id . '?language=fr-FR'; 
+        
+                        try {
+                            $response = $client->request('GET', $url, ['headers' => $headers]);
+                            $filmData = json_decode($response->getBody(), true);
+        
+                            if (isset($filmData['poster_path'])) {
+                                $donnees_fusionnees = [
+                                    'type' => 'movie',
+                                    'id' => $id,
+                                    'poster_path' => 'https://image.tmdb.org/t/p/w500' . $filmData['poster_path'],
+                                    'title' => $filmData['title'] ?? 'Titre inconnu',
+                                    'release_date' => $filmData['release_date'] ?? 'Date inconnue',
+                                ];
+                                $donnees[] = $donnees_fusionnees;
+                            }
+                        } catch (\GuzzleHttp\Exception\ClientException $e) {
+                            continue;
+                        }
+                    } elseif (substr($id, 0, 2) === 'nm') { // Pour les personnes
+                        $url = 'https://api.themoviedb.org/3/find/' . $id . '?external_source=imdb_id&language=fr-fr';
+        
+                        try {
+                            $response = $client->request('GET', $url, ['headers' => $headers]);
+                            $data = json_decode($response->getBody(), true);
+                            $personID = $data['person_results'][0]['id'] ?? null;
+        
+                            if ($personID) {
+                                $personInfoUrl = 'https://api.themoviedb.org/3/person/' . $personID . '?language=fr-fr';
+                                $personInfoResponse = $client->request('GET', $personInfoUrl, ['headers' => $headers]);
+                                $personInfoData = json_decode($personInfoResponse->getBody(), true);
+        
+                                if (isset($personInfoData['profile_path'])) {
+                                    $donnees_fusionnees = [
+                                        'type' => 'person',
+                                        'id' => $id,
+                                        'profile_path' => 'https://image.tmdb.org/t/p/w500' . $personInfoData['profile_path'],
+                                        'name' => $personInfoData['name'] ?? 'Nom inconnu',
+                                    ];
+                                    $donnees[] = $donnees_fusionnees;
+                                }
+                            }
+                        } catch (\GuzzleHttp\Exception\ClientException $e) {
+                            continue;
+                        }
+                    }
+                }
+        
+                $resultats_bdd['additional_data'] = $donnees;
+            }
+        
+            return $resultats_bdd;
         }
 
-}
+    }
+
+
+
+
 
 

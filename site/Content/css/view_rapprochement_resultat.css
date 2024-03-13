@@ -1,0 +1,82 @@
+.card-container {
+    box-shadow: 0px 5px 5px -5px #8793a691;
+}
+.no-gutters{
+    background-color: #6a6a6a;
+    box-shadow: 0px 0px 0px 10px #6a6a6a;
+}
+#titre-result {
+    color: white ;
+}
+
+.input-film {
+    border-radius: 20px;
+    background-color: #353434;
+    border: 1px solid #9A9999;
+    color: #9A9999;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.input-film::placeholder {
+    color: rgb(124, 116, 116) ;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* CSS pour ajouter une transition de couleur sur le hover des titres */
+h5.card-title {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s; /* Ajoute une transition de couleur de 0.3 seconde */
+}
+
+h5.card-title:hover {
+    color: #fcfcfc; /* Change la couleur du texte au survol */
+}
+
+.card-img {
+    box-sizing: content-box !important;
+}
+
+/* Styles ajoutés */
+.text-between-cards {
+    max-width: 1000px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    margin: 20px 0; /* Ajoute de l'espace avant et après le texte */
+    border-radius: 15px; /* Arrondit les bords du texte */
+    box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -1px rgba(0,0,0,0.06); /* Ajoute une ombre pour le rendre plus lisible */
+}
+
+.oups {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    margin: 20px 0; /* Ajoute de l'espace avant et après le texte */
+    border-radius: 15px; /* Arrondit les bords du texte */
+    box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -1px rgba(0,0,0,0.06); /* Ajoute une ombre pour le rendre plus lisible */
+}
+
+#submitBtn {
+    max-width: 200px;
+    background-color: rgb(83, 82, 82);
+    color: rgb(240, 237, 237);
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 10px;
+    margin: 20px 20px; /* Ajoute de l'espace avant et après le texte */
+    border-radius: 15px; /* Arrondit les bords du texte */
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06); /* Ajoute une ombre pour le rendre plus lisible */
+}
+
+#submitBtn:hover{
+    background-color: black;
+}

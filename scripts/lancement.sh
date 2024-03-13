@@ -88,7 +88,13 @@ echo "Ajout des index avec ajout.sql"
 PGPASSWORD="$PGPASSWORD" psql -h "$PGHOST" -d "$PGDATABASE" -U "$PGUSER" -f "ajout.sql"
 
 # Exécution du script Python pour création du graphe 
-python3 extraire_donnee.py $PGUSER $PGPASSWORD $PGHOST $PGDATABASE
+echo "Création fichier graph.pickle"
+rm -f graph.pickle
+touch graph.pickle
 chmod +777 graph.pickle
+
+echo "Lancement de la création du graphe" 
+python3 extraire_donnee.py $PGUSER $PGPASSWORD $PGHOST $PGDATABASE
+
 
 echo "Processus centralisé terminé avec succès"
