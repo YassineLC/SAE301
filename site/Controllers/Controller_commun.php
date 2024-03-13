@@ -6,10 +6,15 @@ class Controller_commun extends Controller {
         $this->action_recherche_commun();
     }
 
-    public function action_recherche_commun() {
+    public function action_commun() {
         $m = Model::getModel() ;
-        //$data = $m->recherche_commun('Keanu Reeves', 'Laurence Fishburne') ;
-        $this->render("commun");
+        if (isset($_GET['param1']) && isset($_GET['param2'])) {
+            $data = $m->getCommun($_GET['param1'], $_GET['param2']);
+            $this->render("commun", ['data' => $data]);
+        }
+        else {
+            $this->render("commun");
+        }
     }
-
 }
+?>

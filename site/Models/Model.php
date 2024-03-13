@@ -187,15 +187,15 @@ class Model {
         return $result;
     }
     //NEW Recherche commun
-    function recherche_commmun($param1, $param2, $db) {
+    function getCommun($param1, $param2) {
         // Requête pour obtenir l'ID du premier paramètre
-        $stmtId1 = $db->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name1');
+        $stmtId1 = $this->bd->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name1');
         $stmtId1->bindParam(':name1', $param1, PDO::PARAM_STR);
         $stmtId1->execute();
         $id1 = $stmtId1->fetchColumn();
     
         // Requête pour obtenir l'ID du deuxième paramètre
-        $stmtId2 = $db->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name2');
+        $stmtId2 = $this->bd->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name2');
         $stmtId2->bindParam(':name2', $param2, PDO::PARAM_STR);
         $stmtId2->execute();
         $id2 = $stmtId2->fetchColumn();
@@ -213,16 +213,15 @@ class Model {
             )
         ';
     
-        $stmt = $db->prepare($query);
+        $stmt = $this->bd->prepare($query);
         $stmt->bindParam(':id1', $id1, PDO::PARAM_STR);
         $stmt->bindParam(':id2', $id2, PDO::PARAM_STR);
         $stmt->execute();
     
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        echo "Ensemble des films en commun :";
-        print_r($result);
+        
         return $result;
+
     }
 
     public function getIndexMovies($number) {
