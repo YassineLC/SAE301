@@ -6,15 +6,7 @@
     <link href="Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="Content/css/view_home_style.css" rel="stylesheet">
     <link rel="stylesheet" href="Content/css/styles_recherche_avancee.css">
-
     <title>Page d'accueil</title>
-    <script>
-        function updateFormAction() {
-            var rechercheValue = document.getElementById('rechercher').value;
-            var form = document.getElementById('myForm');
-            form.action = "?controller=home&action=recherche&recherche=" + encodeURIComponent(rechercheValue);
-        }
-    </script>
 </head>
 <body>
 
@@ -36,8 +28,6 @@
             <div class="filtre">
                 <div>Filtres</div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="submitFilters()">Appliquer les filtres</button>
-            
         </div>
         <div class="droite">
             <div class="recherche">
@@ -48,24 +38,25 @@
                     RESULTAT 
                 </div>
             </div>
+            <form id="searchForm" method="POST" action="?controller=recherche_avancee&action=recherche_avancee">
+                <button type="submit" class="btn btn-primary">Recherche avancée</button>
+            </form>
         </div>
     </div>
-    
+
     <?php require "view_end.php";?>
-    
 
-
-    
-    <script src="Content/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // affichage des filtres en fonction du bouton cliqué
         function updateFilters(type) {
             var filtersDiv = document.querySelector('.filtre');
     
             filtersDiv.innerHTML = "<div>Filtres</div>";
     
             if (type === 'films') {
-            filtersDiv.innerHTML += "<label>Type: <select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></label> <br>";
-            filtersDiv.innerHTML += "<label>Genre: <select><option value='Action'>Action</option><option value='Comedy'>Comédie</option><option value='Drama'>Drama</option></select></label>";
+                filtersDiv.innerHTML += "<label>Type: <select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></label> <br>";
+                filtersDiv.innerHTML += "<label>Genre: <select><option value='Action'>Action</option><option value='Comedy'>Comédie</option><option value='Drama'>Drama</option></select></label>";
             } else if (type === 'acteurs') {
                 filtersDiv.innerHTML += "<label>Type: <select><option value='Acteur'>Acteur</option><option value='Réalisateur'>Réalisateur</option></select></label>";
                 filtersDiv.innerHTML += "<label>Année de naissance: <input type='text' name='birthyear'></label>";
@@ -73,39 +64,32 @@
                 filtersDiv.innerHTML += "<label>Profession principale: <input type='text' name='primaryprofession'></label>";
             }
         }
-        function submitFilters() {
-        var rechercheValue = document.querySelector('.crecherche').value;
-        var typeValue = document.querySelector('.button .active').innerText.toLowerCase(); // Récupère le type actif
-        var filtersDiv = document.querySelector('.filtre');
-        var filters = {};
 
-        if (typeValue === 'films') {
-            filters.type = 'film';
-            filters.genre = filtersDiv.querySelector('select[name="genre"]').value;
-        } else if (typeValue === 'acteurs') {
-            filters.type = 'personne';
-            filters.birthyear = filtersDiv.querySelector('input[name="birthyear"]').value;
-            filters.deathyear = filtersDiv.querySelector('input[name="deathyear"]').value;
-            filters.primaryprofession = filtersDiv.querySelector('input[name="primaryprofession"]').value;
-        }
-
-        //req au model
-        fetch('?controller=recherche_avancee&action=recherche_avancee', {
-            method: 'POST',
-            body: JSON.stringify({
-                expression: rechercheValue,
-                filters: filters
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); 
-        })
-        .catch(error => console.error('Erreur lors de la récupération des résultats :', error));
-    }
+        // Intercepter la soumission du formulaire et envoyer les données via AJAX
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(event) {
+                event.preventDefault(); // Empêche le rechargement de la page
+                var expression = $('.crecherche').val();
+                var filters = ''; // Collectez les valeurs des filtres ici
+                $.ajax({
+                    type: 'POST', // Utilisez la méthode POST
+                    url: $(this).attr('action'),
+                    data: {
+                        expression: expression,
+                        filters: filters
+                    },
+                    success: function(response) {
+                        // Mettez à jour votre vue avec la réponse du serveur
+                        // Vous pouvez remplacer le contenu de votre div de résultat par le contenu de la réponse
+                        $('.resultat').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        // Gérez les erreurs ici
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

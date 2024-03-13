@@ -187,7 +187,7 @@ class Model {
         return $result;
     }
     //NEW Recherche commun
-    function recherche_commun($param1, $param2) {
+    function getCommun($param1, $param2) {
         // Requête pour obtenir l'ID du premier paramètre
         $stmtId1 = $this->bd->prepare('SELECT nconst FROM namebasics WHERE primaryname = :name1');
         $stmtId1->bindParam(':name1', $param1, PDO::PARAM_STR);
@@ -219,9 +219,9 @@ class Model {
         $stmt->execute();
     
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        echo "Ensemble des films en commun :";
-        print_r($result);
+        
+        return $result;
+
     }
 
     public function getIndexMovies($number) {

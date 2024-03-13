@@ -78,7 +78,7 @@
 
                     <!-- Feature 2 -->
                     <div class="col-md-6">
-                        <a class="feature-block text-decoration-none" href="?controller=recherche_avancee&action=recherche_avancee">
+                        <a class="feature-block text-decoration-none" href="?controller=recherche_avancee&action=recherche">
                             <div class="fonc-box feature-content p-4">
                                 <h3 class="text-center text-xl font-semibold mt-2">RECHERCHES AVANCÉES</h3>
                                 <div class="content-with-img">
