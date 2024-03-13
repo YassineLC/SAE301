@@ -71,14 +71,31 @@
                     <div class="card bg-dark text-white">
                         <img src="https://image.tmdb.org/t/p/w200<?= $actor['profile_path'] ?>" alt="<?= $actor['name'] ?>" class="img-fluid" style="width: 200px; height: 300px;">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $actor['name'] ?></h5>
-                            <p class="card-text"><?= $actor['character'] ?></p>
+                            <h6 class="card-title"><?= $actor['name'] ?></h6>
+                            <p class="card-text"><?= str_replace("(voice)", "", $actor['character']) ?></p>
                         </div>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+
+        <h2 class="text-white mt-4">Réalisateur</h2> 
+
+        <div class="scrolling-wrapper">
+        
+            <?php $director = array_slice($data[0]['director'], 0, 3);?>
+            <?php foreach($director as $directors): ?>
+                <?php if (!empty($directors['profile_path']) && ($directors['job'] === 'Director')): ?>
+                    <div class="card bg-dark text-white" style="width: 200px;">
+                        <img src="https://image.tmdb.org/t/p/w200<?= $directors['profile_path'] ?>" alt="<?= $directors['name'] ?>" class="img-fluid">
+                        <div class="card-body">
+                        <h6 class="card-title"><?= $directors['name'] ?></h6>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
+</div>
 
 
 

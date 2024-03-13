@@ -221,8 +221,7 @@ class Model {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         echo "Ensemble des films en commun :";
-        //print_r($result);
-        return $result;
+        print_r($result);
     }
 
     public function getIndexMovies($number) {
@@ -299,7 +298,12 @@ class Model {
                 return $person['known_for_department'] == 'Acting';
             });
 
+            $realisateurs = array_filter($castData['crew'], function($real) {
+                return $real['known_for_department'] == 'Directing';
+            });
+
             $movie['actors'] = $actors;
+            $movie['director'] = $realisateurs;
         }
 
             return $resultat;
