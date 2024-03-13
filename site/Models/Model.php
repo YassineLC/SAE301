@@ -479,6 +479,15 @@ class Model {
                                 ];
                                 $donnees[] = $donnees_fusionnees;
                             }
+                            else {
+                                $donnees_fusionnees = [
+                                    'type' => 'movie',
+                                    'id' => $id,
+                                    'title' => $filmData['title'] ?? 'Titre inconnu',
+                                    'release_date' => $filmData['release_date'] ?? 'Date inconnue',
+                                ];
+                                $donnees[] = $donnees_fusionnees;
+                            }
                         } catch (\GuzzleHttp\Exception\ClientException $e) {
                             continue;
                         }
@@ -500,6 +509,14 @@ class Model {
                                         'type' => 'person',
                                         'id' => $id,
                                         'profile_path' => 'https://image.tmdb.org/t/p/w500' . $personInfoData['profile_path'],
+                                        'name' => $personInfoData['name'] ?? 'Nom inconnu',
+                                    ];
+                                    $donnees[] = $donnees_fusionnees;
+                                }
+                                else {
+                                    $donnees_fusionnees = [
+                                        'type' => 'person',
+                                        'id' => $id,
                                         'name' => $personInfoData['name'] ?? 'Nom inconnu',
                                     ];
                                     $donnees[] = $donnees_fusionnees;

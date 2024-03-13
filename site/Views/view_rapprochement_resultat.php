@@ -35,7 +35,13 @@
                     <div class="text-center card mb-3 card-container" style="max-width: 1000px;">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <?php $href = $ligne['type'] === 'movie' ? "?controller=details&action=details&tconst={$ligne['id']}" : "?controller=details&action=details&nconst={$ligne['id']}"; ?>
+                                <?php $href = $ligne['type'] === 'movie' ? "?controller=details&action=details&tconst={$ligne['id']}" : "?controller=details&action=details&nconst={$ligne['id']}";
+                                if ($ligne['type'] === 'movie') {
+                                    $imgSrc = isset($ligne['poster_path']) && $ligne['poster_path'] ? "https://image.tmdb.org/t/p/original/{$ligne['poster_path']}" : "Content/img/default-movie.jpg";
+                                } else {
+                                    $imgSrc = isset($ligne['profile_path']) && $ligne['profile_path'] ? "https://image.tmdb.org/t/p/w600_and_h900_bestv2{$ligne['profile_path']}" : "Content/img/default-person.jpg";
+                                }
+                                ?>
                                 <a href="<?= $href ?>">
                                     <?php $imgSrc = $ligne['type'] === 'movie' ? "https://image.tmdb.org/t/p/original/{$ligne['poster_path']}" : "https://image.tmdb.org/t/p/w600_and_h900_bestv2{$ligne['profile_path']}"; ?>
                                     <img src="<?= $imgSrc ?>" class="card-img <?= $ligne['type'] === 'movie' ? 'poster-img' : 'rounded' ?>" alt="<?= $ligne['type'] === 'movie' ? $ligne['title'] : $ligne['name'] ?>">
@@ -82,6 +88,7 @@
 
 
     <?php endif ?>
+    <?php print_r($data); ?>
     
 
    <script src="Content/js/view_rapprochement_resultat.js"></script> 
