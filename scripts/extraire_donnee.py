@@ -45,7 +45,7 @@ current_dir = os.path.dirname(__file__)
 
 # Construire le chemin vers graph.pickle de manière dynamique
 graph_path = os.path.join(current_dir, 'graph.pickle')
-
+print("Chemin du graphe sérialisé: ", graph_path)
 #with open(graph_path, 'wb') as f:
 #    pickle.dump(G, f)
 save(G,graph_path)
